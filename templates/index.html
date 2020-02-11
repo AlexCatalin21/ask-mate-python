@@ -6,21 +6,22 @@
 </head>
 <body>
 <table>
-<tr>
-    {% for i in range((table_elements[0][0]) | length)%}
-    <th><h4>{{table_elements[0][0][i]}}</h4></th>
+    <thead>
+        <tr>
+            {% for header in questions[0] %}
+                <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in questions[1:] %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{ row[cell] | safe}}</td>
+                {% endfor %}
+            </tr>
         {% endfor %}
-</tr>
-
-    {% for i in range((table_elements[0][1]) | length)%}
-    <tr><td>{{table_elements[0][1][i]}}</td></tr>
-        {% endfor %}
-
-
-    {% for i in range((table_elements[0][2]) | length)%}
-   <tr><td>{{table_elements[0][2][i]}}</td></tr>
-        {% endfor %}
-
+    </tbody>
 </table>
 </body>
 </html>

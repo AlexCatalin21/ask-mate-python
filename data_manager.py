@@ -2,10 +2,17 @@ import csv
 
 def read_from_file(filename):
     questions=[]
-    with open(filename,"r") as file:
-        for row in file:
-            questions.append([row.strip("\n").split(',')])
-    return questions
+    with open(filename) as file:
+        for row in csv.DictReader(open(filename)):
+            newdict={}
+            for key in row:
+                newdict[key] = row[key].replace("\n", "<br />")
+            questions.append(newdict)
+    return(questions)
+
+print(read_from_file("sample_data/question.csv"))
 
 
-print(read_from_file("question.csv"))
+
+
+
