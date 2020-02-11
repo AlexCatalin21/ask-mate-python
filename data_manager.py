@@ -1,11 +1,10 @@
 import csv
 
+
 def read_from_file(filename):
-    questions=[]
     with open(filename,"r") as file:
-        for row in file:
-            questions.append([row.strip("\n")])
-    return questions
-
-
-print(read_from_file("sample_data/question.csv"))
+        elements = csv.DictReader(file)
+        list_of_dict=[]
+        for row in elements:
+            list_of_dict.append(row)
+        return list_of_dict
