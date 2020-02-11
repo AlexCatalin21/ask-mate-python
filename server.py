@@ -9,7 +9,6 @@ app = Flask(__name__)
 def main_page():
     return render_template('index.html', questions = data_manager.read_from_file('sample_data/question.csv'))
 
-
 if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
