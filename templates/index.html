@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ask mate</title>
+</head>
+<body>
+<table>
+<tr>
+    {% for i in range((table_elements[0][0]) | length)%}
+    <th><h4>{{table_elements[0][0][i]}}</h4></th>
+        {% endfor %}
+</tr>
+
+    {% for i in range((table_elements[0][1]) | length)%}
+    <tr><td>{{table_elements[0][1][i]}}</td></tr>
+        {% endfor %}
+
+
+    {% for i in range((table_elements[0][2]) | length)%}
+   <tr><td>{{table_elements[0][2][i]}}</td></tr>
+        {% endfor %}
+
+</table>
+</body>
+</html>
+
