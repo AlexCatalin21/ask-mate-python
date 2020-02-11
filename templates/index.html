@@ -5,22 +5,22 @@
     <title>Ask mate</title>
 </head>
 <body>
+
 <table>
-<tr>
-    {% for i in range((table_elements[0][0]) | length)%}
-    <th><h4>{{table_elements[0][0][i]}}</h4></th>
-        {% endfor %}
+    <thead>
+<tr> {% for header in table_elements[0] %}
+    <th>{{header}}</th>
+    {% endfor %}
 </tr>
+    </thead>
 
-    {% for i in range((table_elements[0][1]) | length)%}
-    <tr><td>{{table_elements[0][1][i]}}</td></tr>
+    <tbody> {% for row in table_elements[1:] %}
+    <tr> {% for cell in row %}
+    <td>{{ cell }}</td>
         {% endfor %}
-
-
-    {% for i in range((table_elements[0][2]) | length)%}
-   <tr><td>{{table_elements[0][2][i]}}</td></tr>
+    </tr>
         {% endfor %}
-
+    </tbody>
 </table>
 </body>
 </html>
