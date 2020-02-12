@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Question</title>
 <style>
 table {
   width: 100%;
-    background-color: blanchedalmond;
+    background-color: lightblue;
+    background-image: url("/templates/img/home_background.jpg");
 }
 
 td, th {
   border: 2px solid;
-    border-color: darkgoldenrod;
+    border-color: cornflowerblue;
   text-align: center;
   padding: 8px;
     color: black;
 }
     th{
-        background-color: darksalmon;
+        background-color: #177199;
         font-size: large;
         font-family:Geneva, serif;
     }
@@ -23,7 +25,6 @@ td, th {
 </head>
 <body>
     <table>
-        <tc>
             <th>
                 Title
             </th>
@@ -45,8 +46,6 @@ td, th {
                     <td>{{answers}}</td><br>
             </tr>
                 {% endfor %}
-        </tc>
-
     </table>
 </body>
 </html>
