@@ -29,12 +29,17 @@ td, th {
         </tr>
          <tbody>
              {% for dictionar in table_elements: %}
-                <tr>{% for values in dictionar.values(): %}
-             <td>{{values}}</td>
+                <tr>{% for keys, values in dictionar.items(): %}
+                        {% if keys == 'title' %}
+                            <td><a href="/question/{{dictionar['id']}}">{{values}}</a></td>
+                        {% else %}
+                            <td>{{values}}</td>
+                        {% endif %}
                     {% endfor%}</tr>
-             {% endfor%}}
+             {% endfor%}
         </tbody>
     </table>
+
 </body>
 </html>
 
