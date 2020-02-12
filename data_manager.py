@@ -1,10 +1,10 @@
 import csv
-
+questions={'id': '', 'submission_time': '', 'view_number': '', 'vote_number': '', 'title': '', 'message': '', 'image': ''}
 def read_from_file(filename):
-    questions=[]
-    with open(filename,"r") as file:
+    with open(filename, "r") as file:
         for row in file:
-            questions.append([row.strip("\n").split(',')])
+            for i in row:
+                questions.update(i = 0)
     return questions
 
 
