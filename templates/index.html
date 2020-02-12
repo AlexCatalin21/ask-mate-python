@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>main page</title>
+<style>
+table {
+  width: 100%;
+    background-color: blanchedalmond;
+}
+
+td, th {
+  border: 2px solid;
+    border-color: darkgoldenrod;
+  text-align: center;
+  padding: 8px;
+    color: black;
+}
+    th{
+        background-color: darksalmon;
+        font-size: large;
+        font-family:Geneva, serif;
+    }
+</style>
 </head>
 <body>
-    <container>
-
-        {% for line in file %}
-            {% for item in line %}
-        <div style="border:1px solid orangered;margin-bottom:5px;padding:10px;">
-                {{}}
-        </div>
+    <table>
+        <tr>
+            {% for title in table_elements[0]: %}
+                <th>{{title.replace("_"," ")}}</th>
             {% endfor %}
-        {% endfor %}
-
-    </container>
-
+        </tr>
+         <tbody>
+             {% for dictionar in table_elements: %}
+                <tr>{% for values in dictionar.values(): %}
+             <td>{{values}}</td>
+                    {% endfor%}</tr>
+             {% endfor%}}
+        </tbody>
+    </table>
 </body>
 </html>
+
+
+
