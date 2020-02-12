@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def main_page():
-    return render_template('index.html', table_elements = data_manager.read_from_file('sample_data/question.csv'))
+    return render_template('index.html', table_elements = data_manager.sort_questions())
 
 
 if __name__ == '__main__':
