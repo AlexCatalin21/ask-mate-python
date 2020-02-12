@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def main_page():
-    return render_template('index.html', table_elements = data_manager.read_from_file('sample_data/question.csv'))
+    return render_template('index.html', table_elements = data_manager.sort_questions())
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
