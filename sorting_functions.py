@@ -20,5 +20,3 @@ def get_answer(id):
                 list_of_answers.append(dictionar['message'])
     return list_of_answers
 
-print(get_answer('0'))
-# print(title_and_message("1"))
