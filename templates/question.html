@@ -20,31 +20,29 @@ td, th {
         font-size: large;
         font-family:Geneva, serif;
     }
+    body{
+        background-image: url({{ url_for('static', filename='image/background_img.jpg') }});
+    }
 </style>
 </head>
 <body>
     <table>
-            <th>
-                Title
-            </th>
-            <tr>
-                <td>{{question_elements[0][0]}}</td><br>
-            </tr>
-
-            <th>
-                Message
-            </th>
-            <tr>
-                <td>{{question_elements[1][0]}}</td><br>
-            </tr>
-            <th>
-                Answers
-            </th>
-            <tr>
-                {% for answers in answer_elements:%}
-                    <td>{{answers}}</td><br>
-            </tr>
-                {% endfor %}
+        <tr>
+            <th>Title</th>
+            <td>{{question_elements[0][0]}}</td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td>{{question_elements[1][0]}}</td>
+        </tr>
+        <tr>
+            <th> Answers </th>
+            <td>
+            {% for answers in answer_elements:%}
+                <strong>Answer:</strong>{{answers}}<br>
+            {% endfor %}
+            </td>
+        </tr>
     </table>
 </body>
 </html>
