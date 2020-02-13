@@ -11,8 +11,6 @@ def main_page():
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
-
-
     return render_template('question.html', question_elements= sorting_functions.title_and_message(question_id), answer_elements= sorting_functions.get_answer(question_id), question_id=question_id )
 
 
@@ -20,16 +18,19 @@ def show_questions(question_id):
 def new_answers(question_id):
     if request.method == 'POST':
         message = request.form['message']
-        data_manager.write_to_file("sample_data/answer.csv", question_id, message)
+        data_manager.write_to_answers("sample_data/answer.csv", question_id, message)
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 
 @app.route('/add_question', methods=["GET", "POST"])
 def add_question():
-    if request.method == 'GET':
-        return render_template('add-question.html')
     if request.method == 'POST':
-        return render_template('templates/question.html')
+        message = request.form['message']
+        title = request.form['title']
+        question_id = data_manager.generate_id('sample_data/question.csv')
+        data_manager.write_to_questions("sample_data/question.csv", message, title)
+        return redirect(url_for('show_questions', question_id=question_id))
+    return render_template('add-question.html')
 
 
 if __name__ == '__main__':
