@@ -1,51 +1,57 @@
 <!DOCTYPE html>
+
 <head>
     <title>Home | Question List</title>
-<style>
-table {
-  width: 100%;
-    background-color: blanchedalmond;
-}
+    <style>
+        table {
+            width: 100%;
+            background-color: blanchedalmond;
+        }
 
-td, th {
-  border: 2px solid;
-    border-color: darkgoldenrod;
-  text-align: center;
-  padding: 8px;
-    color: black;
-}
-    th{
-        background-color: darksalmon;
-        font-size: large;
-        font-family:Geneva, serif;
-    }
-body {
-        background-color: #444444;
-}
-</style>
+        td,
+        th {
+            border: 2px solid;
+            border-color: darkgoldenrod;
+            text-align: center;
+            padding: 8px;
+            color: black;
+        }
+
+        th {
+            background-color: darksalmon;
+            font-size: large;
+            font-family: Geneva, serif;
+        }
+
+        body {
+            background-color: #444444;
+        }
+    </style>
 </head>
+
 <body>
+
+    <br>
+    <p><a href="add_question">Add a question</a></p><br><br>
     <table>
         <tr>
             {% for title in table_elements[0]: %}
-                <th>{{title.replace("_"," ")}}</th>
+            <th>{{title.replace("_"," ")}}</th>
             {% endfor %}
         </tr>
-         <tbody>
-             {% for dictionar in table_elements: %}
-                <tr>{% for keys, values in dictionar.items(): %}
-                        {% if keys == 'title' %}
-                            <td><a href="/question/{{dictionar['id']}}">{{values}}</a></td>
-                        {% else %}
-                            <td>{{values}}</td>
-                        {% endif %}
-                    {% endfor%}</tr>
-             {% endfor%}
+        <tbody>
+            {% for dictionar in table_elements: %}
+            <tr>{% for keys, values in dictionar.items(): %}
+                {% if keys == 'title' %}
+                <td><a href="/question/{{dictionar['id']}}">{{values}}</a></td>
+                {% else %}
+                <td>{{values}}</td>
+                {% endif %}
+                {% endfor%}</tr>
+            {% endfor%}
         </tbody>
     </table>
 
 </body>
+
 </html>
-
-
-
