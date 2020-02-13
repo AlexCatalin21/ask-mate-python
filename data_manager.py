@@ -31,8 +31,7 @@ def write_to_file(filename, question_id, message):
 
 def sort_questions():
     questions = []
-    sorted_list = sorted(read_from_file(
-        "sample_data/question.csv"), key=lambda k: k["submission_time"], reverse=True)
+    sorted_list = sorted(read_from_file("sample_data/question.csv"), key=lambda k: k["submission_time"], reverse=True)
     return sorted_list
 
 
