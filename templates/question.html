@@ -20,9 +20,7 @@ td, th {
         font-size: large;
         font-family:Geneva, serif;
     }
-    body{
-        background-image: url({{ url_for('static', filename='image/background_img.jpg') }});
-    }
+
 </style>
 </head>
 <body>
@@ -44,5 +42,6 @@ td, th {
             </td>
         </tr>
     </table>
+    <a href="/question/{{question_id}}/new-answer">Answer the question</a>
 </body>
 </html>
