@@ -24,7 +24,12 @@ def new_answers(question_id):
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 
-
+@app.route('/add_question', methods=["GET", "POST"])
+def add_question():
+    if request.method == 'GET':
+        return render_template('add-question.html')
+    if request.method == 'POST':
+        return render_template('templates/question.html')
 
 
 if __name__ == '__main__':
