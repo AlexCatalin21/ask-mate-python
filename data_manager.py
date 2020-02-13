@@ -68,3 +68,33 @@ def generate_id(filename):
         list_of_id.append(int(dictionary["id"]))
     my_id = max(list_of_id)+ 1
     return my_id
+
+
+def remove_question(id):
+    list_of_questions = read_from_file("sample_data/question.csv")
+    for dictionar in list_of_questions:
+        if dictionar["id"] == id:
+            list_of_questions.remove(dictionar)
+            break
+    QUESTION_HEADERS = ['id', 'submission_time', 'view_number', 'vote_number', 'title', 'message', 'image']
+    with open('sample_data/question.csv','w') as file:
+        writer=csv.DictWriter(file, fieldnames= QUESTION_HEADERS)
+        writer.writeheader()
+        for dict in list_of_questions:
+            writer.writerow(dict)
+
+def remove_answer(id):
+    list_of_answers = read_from_file("sample_data/answer.csv")
+    for dictionar in list_of_answers:
+        if dictionar["question_id"] == id:
+            list_of_answers.remove(dictionar)
+            break
+    ANSWER_HEADERS = ["id","submission_time","vote_number","question_id","message","image"]
+    with open('sample_data/answer.csv','w') as file:
+        writer=csv.DictWriter(file, fieldnames=ANSWER_HEADERS)
+        writer.writeheader()
+        for dict in list_of_answers:
+            writer.writerow(dict)
+
+
+remove_answer("3")

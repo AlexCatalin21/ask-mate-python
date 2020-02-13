@@ -22,6 +22,14 @@ def new_answers(question_id):
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 
+@app.route("/question/<question_id>/delete", methods=["GET", "POST","DELETE"])
+def remove_a_question(question_id):
+    if request.method == 'GET':
+        data_manager.remove_question(question_id)
+        data_manager.remove_answer(question_id)
+    return redirect(url_for('main_page'))
+
+
 @app.route('/add_question', methods=["GET", "POST"])
 def add_question():
     if request.method == 'POST':
