@@ -23,6 +23,19 @@
             font-family: Geneva, serif;
         }
 
+        #link {
+            color: #03001e;
+        }
+
+        #link:visited {
+            color: #03001e;
+        }
+
+        #link:hover,
+        #link:active,
+        #link:focus {
+            color: #ffffff;
+        }
     </style>
 </head>
 
@@ -40,11 +53,17 @@
             {% for dictionar in table_elements: %}
             <tr>{% for keys, values in dictionar.items(): %}
                 {% if keys == 'title' %}
-                <td><a href="/question/{{dictionar['id']}}/vote-up">vote up</a>
+                <td><button style="background-color: #5340fc; border-radius: 3px; font-size: 11px; height:
+                        20px; padding: 0 6px">
+                        <a id="link" href="/question/{{dictionar['id']}}/vote-up">Like</a>
+                    </button>
                     &nbsp;
-                    <a href="/question/{{dictionar['id']}}">{{values}}</a>
+
+                    <a id="link" href="/question/{{dictionar['id']}}">{{values}}</a>
                     &nbsp;
-                    <a href="/question/{{dictionar['id']}}/vote-down">vote down</a>
+                    <button style="background-color:#5340fc;border-radius: 3px; font-size: 11px; height:
+                                        20px; padding: 0 6px">
+                        <a id="link" href="/question/{{dictionar['id']}}/vote-down">Dislike</a></button>
                 </td>
                 {% else %}
                 <td>{{values}}</td>
