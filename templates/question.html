@@ -1,29 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Question</title>
-<style>
-table {
-  width: 100%;
-    background-color: lightblue;
-}
 
-td, th {
-  border: 2px solid;
-    border-color: cornflowerblue;
-  text-align: center;
-  padding: 8px;
-    color: black;
-}
-    th{
-        background-color: #177199;
-        font-size: large;
-        font-family:Geneva, serif;
-    }
+    <style>
+        table {
+            width: 100%;
+            background-color: lightblue;
+        }
 
-</style>
+        td,
+        th {
+            border: 2px solid;
+            border-color: cornflowerblue;
+            text-align: center;
+            padding: 8px;
+            color: black;
+        }
+
+        th {
+            background-color: #177199;
+            font-size: large;
+            font-family: Geneva, serif;
+        }
+
+        #link {
+            color: #03001e;
+        }
+
+        #link:visited {
+            color: #03001e;
+        }
+
+        #link:hover,
+        #link:active,
+        #link:focus {
+            color: #ffffff;
+        }
+
+        #link:link,
+        #link:visited,
+        #link:hover,
+        #link:active {
+            text-decoration: none;
+        }
+
+        #link1 {
+            color: #03001e;
+        }
+
+        #link1:focus {
+            color: #ffffff;
+        }
+
+        #link1:link,
+        #link1:visited,
+        #link1:hover,
+        #link1:active {
+            text-decoration: none;
+        }
+    </style>
+
+
 </head>
-<body>
+
+<body style="background-color: lightpink">
+    <br><br>
+    <h3><a id="link1" href="/question/{{question_id}}/new-answer">&nbsp;&nbsp;<strong>Answer the
+                question</strong></a>&nbsp;
+        <a id="link1" href="/question/{{question_id}}/delete" methods="GET"> <strong>Delete this question</strong> </a>
+    </h3>
     <table>
         <tr>
             <th>Title</th>
@@ -36,18 +83,30 @@ td, th {
         <tr>
             <th> Answers </th>
             <td>
-            {% for answers in answer_elements: %}
+                {% for answers in answer_elements: %}
                 {% if question_id == answers["question_id"]: %}
-                    <strong>Answer:</strong>{{answers["message"]}}<br>
-                    <p><a href="/answer/{{answers['id']}}/{{question_id}}/vote_up">Vote up</a>Vote number: {{answers['vote_number']}}<a
-                            href="/answer/{{answers['id']}}/{{question_id}}/vote_down">Vote down</a></p>
+                <strong>Answer:</strong>{{answers["message"]}}<br>
+
+                <p>
+                    <button style="background-color: #f5d837; border-radius: 3px; font-size: 11px; height:
+                                            20px; padding: 0 6px">
+                        <a id="link" href="/answer/{{answers['id']}}/{{question_id}}/vote_up">Like</a>
+                    </button>
+
+                    Vote number: {{answers['vote_number']}}
+
+                    <button style="background-color: #f5d837; border-radius: 3px; font-size: 11px; height:
+                                                                20px; padding: 0 6px">
+                        <a id="link" href="/answer/{{answers['id']}}/{{question_id}}/vote_down">Dislike</a>
+                    </button>
+                </p>
 
                 {% endif %}
-            {% endfor %}
+                {% endfor %}
             </td>
         </tr>
     </table>
-    <a href="/question/{{question_id}}/new-answer">Answer the question</a>
-    <a href="/question/{{question_id}}/delete" methods="GET"> Delete this question </a>
+
 </body>
+
 </html>
