@@ -38,6 +38,7 @@ td, th {
             <td>
             {% for answers in answer_elements:%}
                 <strong>Answer:</strong>{{answers}}<br>
+                <p>Vote number: {{answers["vote_number"]}}</p>
             {% endfor %}
             </td>
         </tr>
