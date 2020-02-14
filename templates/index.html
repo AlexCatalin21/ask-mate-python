@@ -36,6 +36,15 @@
         #link:focus {
             color: #ffffff;
         }
+        #link2 {
+            color: blanchedalmond;
+        }
+        #link2:focus {
+            color: darkgoldenrod;
+        }
+        #link2{
+            font-size: larger;
+        }
 
         #link:link,
         #link:visited,
@@ -43,13 +52,16 @@
         #link:active {
             text-decoration: none;
         }
+        body{
+            background-color: black;
+        }
     </style>
 </head>
 
 <body>
 
     <br>
-    <p><a href="add_question">Add a question</a></p><br><br>
+    <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
     <table>
         <tr>
             {% for title in table_elements[0]: %}
