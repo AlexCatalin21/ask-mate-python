@@ -6,18 +6,21 @@
     <title>Title</title>
 </head>
 
-<body>
+<body style="background-color:powderblue;">
+    <div style="text-align: center">
+    <h2 style="text-align:center;">Add a new question</h2>
     <form action="/add_question" method="POST"><br><br><br>
-        Title of the new question:<br>
+        <p style="text-align:center; font-family: times, serif; font-size:14pt; font-style:italic">Title of the new question:</p><br>
         <input type="text" name="title">
         <br><br>
-        Message:<br>
+        <p style="text-align:center; font-family: times, serif; font-size:14pt; font-style:italic">Message:</p><br>
         <textarea type="text" name="message" rows="4" cols="50"></textarea>
         <br><br>
         <input
             style="transition-duration: 0.4s; background-color: black; color: white; border-radius: 12px; font-size: 16px"
             type="submit" value="Submit">
     </form>
+        </div>
 
 </body>
 
