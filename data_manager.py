@@ -112,6 +112,7 @@ def question_vote(question_id, vote):
         for dict in sorted_list:
             elements.writerow(dict)
 
+
 def answer_vote(answer_id, vote):
     filename = "sample_data/answer.csv"
     answer_list = read_from_file(filename)
@@ -126,4 +127,3 @@ def answer_vote(answer_id, vote):
         elements.writeheader()
         for dict in answer_list:
             elements.writerow(dict)
-

@@ -11,7 +11,7 @@ def main_page():
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
-    return render_template('question.html', question_elements= sorting_functions.title_and_message(question_id), answer_elements= sorting_functions.get_answer(question_id), question_id=question_id )
+    return render_template('question.html', question_elements= sorting_functions.title_and_message(question_id), answer_elements= data_manager.read_from_file("sample_data/answer.csv"), question_id=question_id )
 
 
 @app.route('/question/<question_id>/new-answer', methods=["GET", "POST"])
@@ -51,6 +51,17 @@ def question_vote_up(question_id):
 def question_vote_down(question_id):
     data_manager.question_vote(question_id, -1)
     return redirect(url_for('main_page'))
+
+@app.route('/answer/<answer_id>/<question_id>/vote_up', methods=['GET'])
+def answer_vote_up(answer_id,question_id):
+    data_manager.answer_vote(answer_id, 1)
+    return redirect(url_for('show_questions',question_id=question_id))
+
+@app.route('/answer/<answer_id>/<question_id>/vote_down', methods=['GET'])
+def answer_vote_down(answer_id,question_id):
+    data_manager.answer_vote(answer_id, -1)
+    return redirect(url_for('show_questions',question_id=question_id))
+
 
 if __name__ == '__main__':
     app.run(
