@@ -36,8 +36,13 @@ td, th {
         <tr>
             <th> Answers </th>
             <td>
-            {% for answers in answer_elements:%}
-                <strong>Answer:</strong>{{answers}}<br>
+            {% for answers in answer_elements: %}
+                {% if question_id == answers["question_id"]: %}
+                    <strong>Answer:</strong>{{answers["message"]}}<br>
+                    <p><a href="/answer/{{answers['id']}}/{{question_id}}/vote_up">Vote up</a>Vote number: {{answers['vote_number']}}<a
+                            href="/answer/{{answers['id']}}/{{question_id}}/vote_down">Vote down</a></p>
+
+                {% endif %}
             {% endfor %}
             </td>
         </tr>
