@@ -40,7 +40,12 @@
             {% for dictionar in table_elements: %}
             <tr>{% for keys, values in dictionar.items(): %}
                 {% if keys == 'title' %}
-                <td><a href="/question/{{dictionar['id']}}">{{values}}</a></td>
+                <td><a href="/question/{{dictionar['id']}}/vote-up">vote up</a>
+                    &nbsp;
+                    <a href="/question/{{dictionar['id']}}">{{values}}</a>
+                    &nbsp;
+                    <a href="/question/{{dictionar['id']}}/vote-down">vote down</a>
+                </td>
                 {% else %}
                 <td>{{values}}</td>
                 {% endif %}

@@ -97,4 +97,17 @@ def remove_answer(id):
             writer.writerow(dict)
 
 
-remove_answer("3")
+def question_vote(question_id, vote):
+    filename = "sample_data/question.csv"
+    sorted_list = sort_questions()
+    for item in sorted_list:
+        if str(item['id']) == str(question_id):
+            update_vote = int(item['vote_number']) + vote
+            item['vote_number'] = update_vote
+    with open(filename, "w") as file:
+        HEADERS = ["id", "submission_time", "view_number","vote_number",
+                   "title", "message", "image"]
+        elements = csv.DictWriter(file, fieldnames=HEADERS)
+        elements.writeheader()
+        for dict in sorted_list:
+            elements.writerow(dict)
