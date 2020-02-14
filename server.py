@@ -41,6 +41,17 @@ def add_question():
     return render_template('add-question.html')
 
 
+@app.route('/question/<question_id>/vote-up', methods=["GET"])
+def question_vote_up(question_id):
+    data_manager.question_vote(question_id, 1)
+    return redirect(url_for('main_page'))
+
+
+@app.route('/question/<question_id>/vote-down', methods=["GET"])
+def question_vote_down(question_id):
+    data_manager.question_vote(question_id, -1)
+    return redirect(url_for('main_page'))
+
 if __name__ == '__main__':
     app.run(
         debug=True
