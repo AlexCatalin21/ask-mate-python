@@ -111,3 +111,19 @@ def question_vote(question_id, vote):
         elements.writeheader()
         for dict in sorted_list:
             elements.writerow(dict)
+
+def answer_vote(answer_id, vote):
+    filename = "sample_data/answer.csv"
+    answer_list = read_from_file(filename)
+    for item in answer_list:
+        if str(item['id']) == str(answer_id):
+            update_vote = int(item['vote_number']) + vote
+            item['vote_number'] = update_vote
+    with open(filename, "w") as file:
+        HEADERS = ["id", "submission_time","vote_number",
+                   "question_id", "message", "image"]
+        elements = csv.DictWriter(file, fieldnames=HEADERS)
+        elements.writeheader()
+        for dict in answer_list:
+            elements.writerow(dict)
+
