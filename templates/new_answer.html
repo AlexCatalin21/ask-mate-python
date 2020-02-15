@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Add answer</title>
 </head>
-<body>
-    <form action="/question/{{question_id}}/new-answer" method="POST">
+    <body style="background-color:powderblue;">
+        <div style="text-align: center">
+            <h2>Add an answer</h2><br><br><br>
+            <form action="/question/{{question_id}}/new-answer" method="POST">
 
-    <input type="text" name="message" />
-    <input type="submit" value="Submit" />
-</form>
-</body>
+                <textarea type="text" name="message" rows="5" cols="50"></textarea><br><br>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </body>
 </html>
