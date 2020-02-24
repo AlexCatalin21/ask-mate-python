@@ -47,7 +47,7 @@
         }
 
         #link1 {
-            color: #ffffff;
+            color: cornflowerblue;
         }
 
         #link1:focus {
@@ -65,12 +65,12 @@
 
 </head>
 
-<body style="background-color: black">
+<body style="background-color: whitesmoke">
+    <h1><strong>Question {{question_id}}</strong></h1>
     <br><br>
-    <h3><a id="link1" href="/question/{{question_id}}/new-answer">&nbsp;&nbsp;<strong>Answer the
-                question</strong></a>&nbsp;
-        <a id="link1" href="/question/{{question_id}}/delete" methods="GET"> <strong>Delete this question</strong> </a>
-    </h3>
+    <h3><a id="link1" href="/"><strong> Back to main page</strong></a></h3>
+    <h2><a id="link1" href="/question/{{question_id}}/new-answer"><strong>Answer the question</strong></a></h2>
+    <h2><a id="link1" href="/question/{{question_id}}/delete"><strong>Delete this question</strong></a></h2>
     <table>
         <tr>
             <th>Title</th>
@@ -106,7 +106,6 @@
             </td>
         </tr>
     </table>
-
 </body>
 
 </html>
