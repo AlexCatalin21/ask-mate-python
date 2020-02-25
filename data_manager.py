@@ -1,59 +1,40 @@
-import csv,time,util
+import time
 from datetime import datetime
 
+import connection
 
-def read_from_file(filename):
-    with open(filename, "r") as file:
-        elements = csv.DictReader(file)
-        list_of_dict = []
-        for row in elements:
-            list_of_dict.append(row)
-        return list_of_dict
+@connection.connection_handler
+def generate_id(cursor):
+    cursor.execute("""SELECT MAX(id) FROM question
+    """)
+    id = cursor.fetchall()
+    return id[0]['max']
 
-def write_to_answers(filename, question_id, message):
-    HEADERS = []
-    for dictionary in read_from_file(filename):
-        for sub_dict in dictionary:
-            HEADERS.append(sub_dict)
-        break
-    with open(filename, "a+") as file:
-        elements = csv.DictWriter(file, fieldnames=HEADERS)
-        submission_time = int(time.time())
-        vote_number = 0
-        message = message
-        image = ""
-        new_id = util.generate_id(filename)
-        elements.writerow({"id": new_id,
-                            "submission_time": submission_time,
-                            "vote_number": vote_number,
-                            "question_id" : question_id,
-                            "message" : message,
-                            "image": image}
-                            )
+@connection.connection_handler
+def read_from_table(cursor, table):
+    cursor.execute(f"""SELECT * FROM {table};""")
+    name = cursor.fetchall()
+    return name
 
 
+@connection.connection_handler
+def write_to_answers(cursor, question_id, message):
+    image = 'nothing'
+    vote_number = 0
+    submission_time = time.time()
+    submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                    INSERT INTO answer (submission_time, vote_number, question_id, message, image) VALUES (%s, %s, %s, %s, %s);
+                    """, (submission_time, vote_number, question_id, message, image))
 
-def write_to_questions(filename,message,title):
-    HEADERS = []
-    for dictionary in read_from_file(filename):
-        for sub_dict in dictionary:
-            HEADERS.append(sub_dict)
-        break
-    with open(filename, "a+") as file:
-        elements = csv.DictWriter(file, fieldnames=HEADERS)
-        submission_time = int(time.time())
-        submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
-        vote_number = 0
-        message = message
-        title=title
-        image = ""
-        view_number = 0
-        new_id = util.generate_id(filename)
-        elements.writerow({"id": new_id,
-                        "submission_time": submission_time,
-                        "view_number": view_number,
-                        "vote_number": vote_number,
-                        "title": title,
-                        "message" : message,
-                        "image": image}
-                            )
+
+@connection.connection_handler
+def write_to_questions(cursor, message, title):
+    view_number = 0
+    vote_number = 0
+    submission_time = time.time()
+    submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
+    image = 'nothing'
+    cursor.execute("""
+                        INSERT INTO question (submission_time, view_number, vote_number, title, message, image) VALUES(%s, %s, %s, %s, %s, %s);
+                        """, (submission_time, view_number, vote_number, title, message, image))
