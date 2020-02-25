@@ -1,13 +1,11 @@
-import csv,time,util
+import csv,time,util,connection
 from datetime import datetime
 
 
+
 def read_from_file(filename):
-    with open(filename, "r") as file:
-        elements = csv.DictReader(file)
-        list_of_dict = []
-        for row in elements:
-            list_of_dict.append(row)
+    cursor
+
         return list_of_dict
 
 def write_to_answers(filename, question_id, message):
