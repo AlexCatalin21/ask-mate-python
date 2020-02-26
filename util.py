@@ -1,9 +1,9 @@
 import data_manager, connection
 
 @connection.connection_handler
-def sort_questions(cursor):
-    cursor.execute(""" SELECT * FROM question
-                    ORDER BY submission_time DESC 
+def sort_questions(cursor, header='submission_time'):
+    cursor.execute(f""" SELECT * FROM question
+                    ORDER BY {header} DESC 
                      LIMIT 5; """)
     sorted_list = cursor.fetchall()
     return sorted_list

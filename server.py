@@ -4,10 +4,13 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-@app.route('/')
-@app.route('/list')
+@app.route('/', methods=["GET", "POST"])
+@app.route('/list', methods=["GET", "POST"])
 def main_page():
-    return render_template('index.html', table_elements = util.sort_questions())
+    if request.method == 'POST':
+        order = request.form['order']
+        return render_template('index.html', table_elements=util.sort_questions(order))
+    return render_template('index.html', table_elements=util.sort_questions())
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
