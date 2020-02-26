@@ -67,4 +67,3 @@ def get_question_id(cursor,answer_id):
                     """)
     question_id = cursor.fetchone()
     return  question_id['question_id']
-

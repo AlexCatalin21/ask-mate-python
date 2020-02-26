@@ -69,7 +69,7 @@ def edit_answer(answer_id):
         message = request.form['message']
         util.edit_an_answer(message, answer_id)
         return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
-    return render_template("edit_answer.html",answer_id=answer_id)
+    return render_template("edit_answer.html",answer_id=answer_id,answers= data_manager.read_from_table('answer'))
 
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment_to_question(question_id):
@@ -79,6 +79,14 @@ def add_comment_to_question(question_id):
        return redirect(url_for('show_questions', question_id=question_id))
     return render_template("comment_for_question.html", question_id=question_id)
 
+
+@app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
+def add_comment_to_answer(answer_id):
+    if request.method == 'POST':
+       message = request.form['message']
+       data_manager.comment_for_answer(message, answer_id)
+       return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
+    return render_template("comment_for_answer.html", answer_id=answer_id)
 
 if __name__ == '__main__':
     app.run(

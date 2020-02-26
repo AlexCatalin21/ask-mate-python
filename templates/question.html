@@ -86,7 +86,7 @@
             <td>
                 {% for answers in answer_elements: %}
                 {% if question_id|int == answers["question_id"]|int: %}
-                <strong>Answer:</strong>{{answers["message"]}} <a href="/answer/{{answers['id']}}/edit"> EDIT ANSWER</a> <br>
+                <strong>Answer:</strong>{{answers["message"]}} <a href="/answer/{{answers['id']}}/edit"> EDIT ANSWER</a><br>
 
                 <p>
                     <button style="background-color: #f5d837; border-radius: 3px; font-size: 11px; height:
@@ -101,6 +101,14 @@
                         <a id="link" href="/answer/{{answers['id']}}/{{question_id}}/vote_down">Dislike</a>
                     </button>
                 </p>
+                <strong>Comment:</strong>
+                <p>{% for comm in comments: %}
+                    {% if answers['id']| int == comm['answer_id']| int %}
+                <h4 class="submission">{{comm["submission_time"]}}</h4>
+            <h4 class="comment">{{comm["message"]}}</h4>
+                    {% endif %}
+                {% endfor %}</p>
+                <a href="/answer/{{answers['id']}}/new-comment"> ADD COMMENT</a><br>
 
                 {% endif %}
                 {% endfor %}
