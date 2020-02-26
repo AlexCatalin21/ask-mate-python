@@ -59,7 +59,7 @@ def answer_vote_up(answer_id, question_id):
     return redirect(url_for('show_questions', question_id=question_id))
 
 @app.route('/answer/<answer_id>/<question_id>/vote_down', methods=['GET'])
-def answer_vote_down(answer_id,question_id):
+def answer_vote_down(answer_id, question_id):
     util.answer_vote(answer_id, -1)
     return redirect(url_for('show_questions', question_id=question_id))
 

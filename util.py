@@ -1,8 +1,13 @@
-import data_manager,csv, connection
+import data_manager, connection
 
-
-def sort_questions():
-    sorted_list = sorted(data_manager.read_from_table('question'), key=lambda k: k["submission_time"], reverse=True)
+@connection.connection_handler
+def sort_questions(cursor):
+    cursor.execute("""
+                    SELECT * FROM question
+                    ORDER BY submission_time DESC 
+                    LIMIT 5; 
+                    """)
+    sorted_list = cursor.fetchall()
     return sorted_list
 
 @connection.connection_handler

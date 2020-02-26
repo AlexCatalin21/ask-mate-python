@@ -1,8 +1,7 @@
-import data_manager, connection
+import connection
 
 @connection.connection_handler
-def title_and_message(cursor,id):
-
+def title_and_message(cursor, id):
     cursor.execute(f"""
                     SELECT title, message FROM question
                     WHERE id = {id};
