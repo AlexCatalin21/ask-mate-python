@@ -38,3 +38,12 @@ def write_to_questions(cursor, message, title):
     cursor.execute("""
                         INSERT INTO question (submission_time, view_number, vote_number, title, message, image) VALUES(%s, %s, %s, %s, %s, %s);
                         """, (submission_time, view_number, vote_number, title, message, image))
+
+
+@connection.connection_handler
+def comment_for_question(cursor, message, question_id):
+    submission_time = time.time()
+    submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
+    cursor.execute("""
+                        INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) VALUES(%s, NULL, %s, %s, NULL);
+                        """, (question_id, message, submission_time))

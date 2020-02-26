@@ -12,7 +12,7 @@ def main_page():
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
     util.increase_view(question_id)
-    return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id), answer_elements= data_manager.read_from_table('answer'), question_id=question_id )
+    return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id), answer_elements= data_manager.read_from_table('answer'), question_id=question_id,  comments = data_manager.read_from_table('comment'))
 
 
 @app.route('/question/<question_id>/new-answer', methods=["GET", "POST"])
@@ -62,6 +62,22 @@ def answer_vote_up(answer_id, question_id):
 def answer_vote_down(answer_id, question_id):
     util.answer_vote(answer_id, -1)
     return redirect(url_for('show_questions', question_id=question_id))
+
+@app.route('/answer/<answer_id>/edit', methods=['GET',"POST"])
+def edit_answer(answer_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        util.edit_an_answer(message, answer_id)
+        return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
+    return render_template("edit_answer.html",answer_id=answer_id)
+
+@app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
+def add_comment_to_question(question_id):
+    if request.method == 'POST':
+       message = request.form['message']
+       data_manager.comment_for_question(message, question_id)
+       return redirect(url_for('show_questions', question_id=question_id))
+    return render_template("comment_for_question.html", question_id=question_id)
 
 
 if __name__ == '__main__':

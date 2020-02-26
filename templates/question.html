@@ -70,6 +70,7 @@
     <br><br>
     <h3><a id="link1" href="/"><strong> Back to main page</strong></a></h3>
     <h2><a id="link1" href="/question/{{question_id}}/new-answer"><strong>Answer the question</strong></a></h2>
+    <h2><a id="link1" href="/question/{{question_id}}/new-comment"><strong>Add a comment</strong></a></h2>
     <h2><a id="link1" href="/question/{{question_id}}/delete"><strong>Delete this question</strong></a></h2>
     <table>
         <tr>
@@ -85,7 +86,7 @@
             <td>
                 {% for answers in answer_elements: %}
                 {% if question_id|int == answers["question_id"]|int: %}
-                <strong>Answer:</strong>{{answers["message"]}}<br>
+                <strong>Answer:</strong>{{answers["message"]}} <a href="/answer/{{answers['id']}}/edit"> EDIT ANSWER</a> <br>
 
                 <p>
                     <button style="background-color: #f5d837; border-radius: 3px; font-size: 11px; height:
@@ -106,6 +107,14 @@
             </td>
         </tr>
     </table>
+    <div><stron>Comments: </stron></div>
+    <br>
+    {% for comment in comments: %}
+        {% if question_id|int == comment["question_id"]: %}
+            <h4 class="submission">{{comment["submission_time"]}}</h4>
+            <h4 class="comment">{{comment["message"]}}</h4>
+        {% endif %}
+    {% endfor %}
 </body>
 
 </html>
