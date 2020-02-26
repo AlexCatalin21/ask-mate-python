@@ -67,6 +67,17 @@
 
     <br>
     <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
+    <form action="" method="POST">
+        <select id="order" name="order">
+            <option value="submission_time">Submission time</option>
+            <option value="view_number">View number</option>
+            <option value="vote_number">Vote number</option>
+            <option value="title">Title</option>
+            <option value="message">Message</option>
+        </select>
+        <input type="submit" value="Submit" />
+    </form>
+    </div>
     <table>
         <tr>
             {% for title in table_elements[0]: %}
