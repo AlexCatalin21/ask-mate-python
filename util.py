@@ -67,3 +67,28 @@ def get_question_id(cursor,answer_id):
                     """)
     question_id = cursor.fetchone()
     return  question_id['question_id']
+
+@connection.connection_handler
+def remove_coment(cursor, comment_id):
+    cursor.execute(f"""
+                    DELETE FROM comment
+                    WHERE id = {comment_id};
+                    """)
+
+@connection.connection_handler
+def get_question_id_by_comm(cursor, comment_id):
+    cursor.execute(f"""
+                    SELECT question_id FROM comment
+                    WHERE id={comment_id};
+                    """)
+    question_id = cursor.fetchone()
+    return question_id['question_id']
+
+@connection.connection_handler
+def get_answer_id_by_com(cursor, comment_id):
+    cursor.execute(f"""
+                    SELECT answer_id FROM comment
+                    WHERE id ={comment_id};
+                    """)
+    answer_id = cursor.fetchone()
+    return answer_id['answer_id']

@@ -91,6 +91,19 @@ def add_comment_to_answer(answer_id):
        return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
     return render_template("comment_for_answer.html", answer_id=answer_id)
 
+
+@app.route("/comments/<comment_id>/delete")
+def remove_a_comment(comment_id):
+    if request.method == 'GET':
+        answer_id = util.get_answer_id_by_com(comment_id)
+        if answer_id == None:
+            question_id = util.get_question_id_by_comm(comment_id)
+        else:
+            question_id = util.get_question_id(answer_id)
+        util.remove_coment(comment_id)
+    return redirect(url_for('show_questions', question_id=question_id))
+
+
 if __name__ == '__main__':
     app.run(
         debug=True

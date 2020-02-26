@@ -3,7 +3,7 @@
 
 <head>
     <title>Question</title>
-
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     <style>
         table {
             width: 100%;
@@ -105,7 +105,7 @@
                 <p>{% for comm in comments: %}
                     {% if answers['id']| int == comm['answer_id']| int %}
                 <h4 class="submission">{{comm["submission_time"]}}</h4>
-            <h4 class="comment">{{comm["message"]}}</h4>
+            <h4 class="comment">{{comm["message"]}}</h4><a href="/comments/{{comm['id']}}/delete"><i class="fas fa-trash-alt"></i></a>
                     {% endif %}
                 {% endfor %}</p>
                 <a href="/answer/{{answers['id']}}/new-comment"> ADD COMMENT</a><br>
@@ -121,6 +121,7 @@
         {% if question_id|int == comment["question_id"]: %}
             <h4 class="submission">{{comment["submission_time"]}}</h4>
             <h4 class="comment">{{comment["message"]}}</h4>
+    <a href="/comments/{{comment['id']}}/delete"><i class="fas fa-trash-alt"></i></a>
         {% endif %}
     {% endfor %}
 </body>
