@@ -74,18 +74,18 @@
     <table>
         <tr>
             <th>Title</th>
-            <td>{{question_elements[0][0]}}</td>
+            <td>{{question_elements[0]['title']}}</td>
         </tr>
         <tr>
             <th>Message</th>
-            <td>{{question_elements[1][0]}}</td>
+            <td>{{question_elements[0]['message']}}</td>
         </tr>
         <tr>
             <th> Answers </th>
             <td>
                 {% for answers in answer_elements: %}
-                {% if question_id == answers["question_id"]: %}
-                <strong>Answer:</strong>{{answers["message"]}}<br>
+                {% if question_id|int == answers["question_id"]|int: %}
+                <strong>Answer:</strong>{{answers["message"]}} <a href="/answer/{{answers['id']}}/edit"> EDIT ANSWER</a> <br>
 
                 <p>
                     <button style="background-color: #f5d837; border-radius: 3px; font-size: 11px; height:
