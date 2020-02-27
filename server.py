@@ -74,6 +74,21 @@ def edit_answer(answer_id):
         return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
     return render_template("edit_answer.html",answer_id=answer_id,answers= data_manager.read_from_table('answer'))
 
+
+@app.route('/comment/<comment_id>/edit', methods=["GET", "POST"])
+def edit_comment(comment_id):
+    if request.method == 'POST':
+        message = request.form['message']
+        util.edit_comment(message, comment_id)
+        answer_id = util.get_answer_id_by_com(comment_id)
+        if answer_id == None:
+            question_id = util.get_question_id_by_comm(comment_id)
+        else:
+            question_id = util.get_question_id(answer_id)
+        return redirect(url_for('show_questions', question_id=question_id))
+    return render_template("edit-comments.html", comment_id=comment_id, comments= data_manager.read_from_table('comment'))
+
+
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment_to_question(question_id):
     if request.method == 'POST':
@@ -102,6 +117,9 @@ def remove_a_comment(comment_id):
             question_id = util.get_question_id(answer_id)
         util.remove_coment(comment_id)
     return redirect(url_for('show_questions', question_id=question_id))
+
+
+
 
 
 if __name__ == '__main__':

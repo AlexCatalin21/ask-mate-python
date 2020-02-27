@@ -92,3 +92,11 @@ def get_answer_id_by_com(cursor, comment_id):
                     """)
     answer_id = cursor.fetchone()
     return answer_id['answer_id']
+
+@connection.connection_handler
+def edit_comment(cursor, message, comment_id):
+    cursor.execute("""
+                    UPDATE comment
+                    SET message = %s
+                    WHERE id = %s;
+                    """, (message, comment_id))
