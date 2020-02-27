@@ -68,12 +68,6 @@
 
     <br>
     <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
-    <div class="search-container">
-    <form action="/action_page.php">
-      <input type="text" placeholder="Search.." name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
     <form action="" method="POST">
         <select id="order" name="order">
             <option value="submission_time">Submission time</option>
@@ -83,6 +77,10 @@
             <option value="message">Message</option>
         </select>
         <input type="submit" value="Submit" />
+    </form>
+    <form action="/search" method="GET">
+        <input type="text" name="phrase">
+        <input type="submit" value="Search" />
     </form>
     </div>
     <table>

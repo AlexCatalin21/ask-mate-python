@@ -108,3 +108,11 @@ def edit_comment(cursor, word):
                     SELECT * FROM question
                     WHERE 
                     """)
+
+@connection.connection_handler
+def search_a_phrase(cursor, phrase):
+    cursor.execute(f"""SELECT * FROM question
+                        WHERE message LIKE '%{phrase}%' OR title LIKE '%{phrase}%';""")
+    result=cursor.fetchall()
+    return result
+
