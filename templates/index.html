@@ -65,10 +65,9 @@
 
 <body>
     <h1 style="color: blanchedalmond;">ASK MATE</h1>
-
     <br>
     <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
-    <form action="" method="POST">
+    <form action="'/'" method="POST">
         <select id="order" name="order">
             <option value="submission_time">Submission time</option>
             <option value="view_number">View number</option>
@@ -85,14 +84,21 @@
     </div>
     <table>
         <tr>
-            {% for title in table_elements[0]: %}
-            <th>{{title.replace("_"," ")}}</th>
-            {% endfor %}
+            <th>ID</th>
+            <th>Submission Time</th>
+            <th>View Number</th>
+            <th>Vote Number</th>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Image</th>
         </tr>
         <tbody>
             {% for dictionar in table_elements: %}
-            <tr>{% for keys, values in dictionar.items(): %}
-                {% if keys == 'title' %}
+            <tr>
+                <td>{{dictionar['id']}}</td>
+                <td>{{dictionar['submission_time']}}</td>
+                <td>{{dictionar['view_number']}}</td>
+                <td>{{dictionar['vote_number']}}</td>
                 <td>
                     <div>
                         <div>
@@ -102,7 +108,13 @@
                             </button>
                         </div>
                         <div>
-                            <a id="link" href="/question/{{dictionar['id']}}">{{values}}</a>
+                            <a id="link" href="/question/{{dictionar['id']}}">
+                                {% if search_phrase == Null: %}
+                                    {{dictionar['title']}}
+                                {% else: %}
+                                    {{dictionar['title'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
+                                {% endif %}
+                                </a>
                         </div>
                         <div>
                             <button style="background-color:#5340fc;border-radius: 3px; font-size: 11px; height:
@@ -111,10 +123,12 @@
                         </div>
                     </div>
                 </td>
-                {% else %}
-                <td>{{values}}</td>
-                {% endif %}
-                {% endfor%}</tr>
+                <td>{% if search_phrase == Null: %}
+                                    {{dictionar['message']}}
+                                {% else: %}
+                                    {{dictionar['message'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
+                                {% endif %}</td>
+                <td>{{dictionar['image']}}</td>
             {% endfor%}
         </tbody>
     </table>

@@ -14,7 +14,7 @@ def main_page():
     if request.args:
         search_phrase=request.args.get('phrase')
         util.search_a_phrase(search_phrase)
-        return render_template('index.html',table_elements=util.search_a_phrase(search_phrase))
+        return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase)
     return render_template('index.html', table_elements=util.sort_questions())
 
 @app.route('/question/<question_id>', methods=["GET"])
