@@ -109,15 +109,6 @@ def remove_a_comment(comment_id):
     return redirect(url_for('show_questions', question_id=question_id))
 
 
-# @app.route('/search',methods=['GET','POST'])
-# def search_phrase():
-#     # search_phrase = str(request.form['phrase'])
-#     # print(request.query_string.
-#     # return request.query_string
-#     # if request.method== 'GET':
-#     #     util.search_a_phrase(search_phrase)
-#     #     return redirect(url_for('/', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase))
-
 if __name__ == '__main__':
     app.run(
         debug=True
