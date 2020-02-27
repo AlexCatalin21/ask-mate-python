@@ -6,10 +6,15 @@ app = Flask(__name__)
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/list', methods=["GET", "POST"])
+@app.route('/search')
 def main_page():
     if request.method == 'POST':
         order = request.form['order']
         return render_template('index.html', table_elements=util.sort_questions(order))
+    if request.args:
+        search_phrase=request.args.get('phrase')
+        util.search_a_phrase(search_phrase)
+        return render_template('index.html',table_elements=util.search_a_phrase(search_phrase))
     return render_template('index.html', table_elements=util.sort_questions())
 
 @app.route('/question/<question_id>', methods=["GET"])
@@ -103,6 +108,15 @@ def remove_a_comment(comment_id):
         util.remove_coment(comment_id)
     return redirect(url_for('show_questions', question_id=question_id))
 
+
+# @app.route('/search',methods=['GET','POST'])
+# def search_phrase():
+#     # search_phrase = str(request.form['phrase'])
+#     # print(request.query_string.
+#     # return request.query_string
+#     # if request.method== 'GET':
+#     #     util.search_a_phrase(search_phrase)
+#     #     return redirect(url_for('/', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase))
 
 if __name__ == '__main__':
     app.run(

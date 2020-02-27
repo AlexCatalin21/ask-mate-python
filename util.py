@@ -92,3 +92,10 @@ def get_answer_id_by_com(cursor, comment_id):
                     """)
     answer_id = cursor.fetchone()
     return answer_id['answer_id']
+
+@connection.connection_handler
+def search_a_phrase(cursor,phrase):
+    cursor.execute(f"""SELECT * FROM question
+                        WHERE message LIKE '%{phrase}%' OR title LIKE '%{phrase}%';""")
+    result=cursor.fetchall()
+    return result
