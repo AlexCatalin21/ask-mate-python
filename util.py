@@ -100,3 +100,11 @@ def edit_comment(cursor, message, comment_id):
                     SET message = %s
                     WHERE id = %s;
                     """, (message, comment_id))
+
+
+@connection.connection_handler
+def edit_comment(cursor, word):
+    cursor.execute("""
+                    SELECT * FROM question
+                    WHERE 
+                    """)
