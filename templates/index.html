@@ -60,6 +60,7 @@
             background-size: cover
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -67,6 +68,12 @@
 
     <br>
     <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
+    <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
     <form action="" method="POST">
         <select id="order" name="order">
             <option value="submission_time">Submission time</option>
