@@ -3,6 +3,7 @@
 <head>
     <title>Home | Question List</title>
     <style>
+
         table {
             width: 80%;
             background-color: navajowhite;
@@ -59,6 +60,11 @@
             background-image: url('/static/image/main3.jpg');
             background-size: cover
         }
+
+        .taggedWord {
+            background-color: #5340fc;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -67,7 +73,7 @@
 
     <br>
     <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
-    <form action="" method="POST">
+    <form action="/" method="POST">
         <select id="order" name="order">
             <option value="submission_time">Submission time</option>
             <option value="view_number">View number</option>
@@ -102,8 +108,8 @@
                         </div>
                         <div>
                             <a id="link" href="/question/{{dictionar['id']}}">{{values}}</a>
-                        </div>
                         <div>
+                        </div>
                             <button style="background-color:#5340fc;border-radius: 3px; font-size: 11px; height:
                                         20px; padding: 0 6px">
                                 <a id="link" href="/question/{{dictionar['id']}}/vote-down">Dislike</a></button>
