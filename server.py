@@ -83,7 +83,7 @@ def edit_answer(answer_id):
 @app.route('/comment/<comment_id>/edit', methods=["GET", "POST"])
 def edit_comment(comment_id):
     if request.method == 'POST':
-        message = request.form['message']
+        message = str(request.form['message'])
         util.edit_comment(message, comment_id)
         answer_id = util.get_answer_id_by_com(comment_id)
         if answer_id == None:

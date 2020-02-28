@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ADD a comment</title>
+    <title>Add comment for question</title>
 </head>
-<body>
+    <body style="background-color:powderblue;">
+        <div style="text-align: center">
+            <h2>Add a comment for question</h2><br><br><br>
 <form action="/question/{{question_id}}/new-comment" method="POST">
                 <textarea type="text" name="message" rows="5" cols="50"></textarea><br><br>
                 <input type="submit" value="Submit" />

@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>EDIT A QUESTION</title>
+    <title>Edit comment</title>
 </head>
-<body>
+    <body style="background-color:powderblue;">
+        <div style="text-align: center">
+            <h2>Edit comment</h2><br><br><br>
 <form action="/comment/{{comment_id}}/edit" method="POST">
-                <textarea type="text" name="message" rows="5" cols="50">
-                    {% for message in comments: %}
-                        {% if comment_id| int == message['id']| int %}
-                            {{message['message']}}
-                        {% endif %}
-                    {% endfor %}
+                <textarea type="text" name="message" rows="5" cols="50">{% for message in comments: %}{% if comment_id| int == message['id']| int %}{{message['message']}}{% endif %}{% endfor %}
                 </textarea><br><br>
                 <input type="submit" value="Submit" />
             </form>
