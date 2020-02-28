@@ -19,7 +19,7 @@ def read_from_table(cursor, table):
 
 @connection.connection_handler
 def write_to_answers(cursor, question_id, message):
-    image = 'nothing'
+    image = 'None'
     vote_number = 0
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
@@ -34,7 +34,7 @@ def write_to_questions(cursor, message, title):
     vote_number = 0
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
-    image = 'nothing'
+    image = 'None'
     cursor.execute("""
                         INSERT INTO question (submission_time, view_number, vote_number, title, message, image) VALUES(%s, %s, %s, %s, %s, %s);
                         """, (submission_time, view_number, vote_number, title, message, image))

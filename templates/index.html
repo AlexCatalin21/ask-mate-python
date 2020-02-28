@@ -2,78 +2,16 @@
 
 <head>
     <title>Home | Question List</title>
-    <style>
-
-        table {
-            width: 80%;
-            background-color: navajowhite;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 25px;
-        }
-        td,th {
-            border: 2px solid;
-            border-color: black;
-            text-align: center;
-            padding: 8px;
-            border-radius: 25px;
-
-
-        }
-
-        th {
-            background-color: darksalmon;
-            font-size: large;
-            font-family: Geneva, serif;
-        }
-
-        #link {
-            color: #03001e;
-        }
-
-        #link:visited {
-            color: #03001e;
-        }
-
-        #link:hover,
-        #link:active,
-        #link:focus {
-            color: #ffffff;
-        }
-        #link2 {
-            color: blanchedalmond;
-        }
-        #link2:focus {
-            color: darkgoldenrod;
-        }
-        #link2{
-            font-size: larger;
-        }
-
-        #link:link,
-        #link:visited,
-        #link:hover,
-        #link:active {
-            text-decoration: none;
-        }
-        body{
-            background-image: url('/static/image/main3.jpg');
-            background-size: cover
-        }
-
-        .taggedWord {
-            background-color: #5340fc;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
 </head>
-
-<body>
-    <h1 style="color: blanchedalmond;">ASK MATE</h1>
-
-    <br>
-    <p><a id="link2" href="add_question"><strong>Ask a question</strong></a></p><br><br>
-    <form action="/" method="POST">
+<header>
+    <h1><i class="far fa-question-circle"></i> ASK MATE <i class="far fa-question-circle"></i></h1>
+</header>
+<p>
+    <p style="color: white"> Order by: <form class="order_form" action="/" method="POST">
         <select id="order" name="order">
             <option value="submission_time">Submission time</option>
             <option value="view_number">View number</option>
@@ -83,43 +21,60 @@
         </select>
         <input type="submit" value="Submit" />
     </form>
-    <form action="/search" method="GET">
+    <form class="search_form" action="/search" method="GET">
         <input type="text" name="phrase">
         <input type="submit" value="Search" />
     </form>
-    </div>
+</p>
+</div>
+<h2 align="center" style="color: #ffffff"><strong>QUESTIONS(<i class="fas fa-question"></i><a class="ask_link" style="color: whitesmoke" href="add_question"><strong>Ask your question</strong></a>)</strong></h2>
     <table>
         <tr>
-            {% for title in table_elements[0]: %}
-            <th>{{title.replace("_"," ")}}</th>
-            {% endfor %}
+            <th>ID</th>
+            <th>Submission Time</th>
+            <th>View Number</th>
+            <th>Vote Number</th>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Image</th>
         </tr>
         <tbody>
             {% for dictionar in table_elements: %}
-            <tr>{% for keys, values in dictionar.items(): %}
-                {% if keys == 'title' %}
+            <tr>
+                <td>{{dictionar['id']}}</td>
+                <td>{{dictionar['submission_time']}}</td>
+                <td>{{dictionar['view_number']}}</td>
+                <td>{{dictionar['vote_number']}}</td>
                 <td>
                     <div>
                         <div>
-                            <button style="background-color: #5340fc; border-radius: 3px; font-size: 11px; height:
-                        20px; padding: 0 6px">
-                                <a id="link" href="/question/{{dictionar['id']}}/vote-up">Like</a>
+                            <button class="vote_button">
+                                <a class="links" href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a>
                             </button>
                         </div>
                         <div>
-                            <a id="link" href="/question/{{dictionar['id']}}">{{values}}</a>
-                        <div>
+                            <a  href="/question/{{dictionar['id']}}">
+                                {% if search_phrase == Null: %}
+                                    {{dictionar['title']}}
+                                {% else: %}
+                                    {{dictionar['title'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
+                                {% endif %}
+                                </a>
                         </div>
-                            <button style="background-color:#5340fc;border-radius: 3px; font-size: 11px; height:
-                                        20px; padding: 0 6px">
-                                <a id="link" href="/question/{{dictionar['id']}}/vote-down">Dislike</a></button>
+                        <div>
+                            <button class="vote_button">
+                                <a class="links" href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i>
+
+</a></button>
                         </div>
                     </div>
                 </td>
-                {% else %}
-                <td>{{values}}</td>
-                {% endif %}
-                {% endfor%}</tr>
+                <td>{% if search_phrase == Null: %}
+                                    {{dictionar['message']}}
+                                {% else: %}
+                                    {{dictionar['message'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
+                                {% endif %}</td>
+                <td>{{dictionar['image']}}</td>
             {% endfor%}
         </tbody>
     </table>
