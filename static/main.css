@@ -1,0 +1,115 @@
+h1 {
+    color: black;
+    background-color: white;
+    text-transform: uppercase;
+    text-align: center;
+    /*margin-top: 20px;*/
+    padding: 30px;
+    font-family: "Abyssinica SIL" , Geneva;
+    font-style: italic;
+    font-weight: bolder;
+}
+header{
+    background-image: radial-gradient(black,white);
+    padding: 30px;
+    margin: 20px;
+
+}
+body{
+            background-image: url("/static/image/main_img.jpg");
+            background-size: cover;
+        }
+
+table{
+            border: inset dimgrey;
+            width: 90%;
+            background-image: url("/static/image/table_bcg.jpg") ;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin-left: auto;
+            margin-right: auto;
+        }
+td,th{
+            border: inset dimgrey;
+            text-align: center;
+            padding: 8px;
+        }
+
+th{
+    background-image: linear-gradient(red,white);
+    font-size: large;
+    font-family: Geneva, serif;
+}
+.vote_button{
+    background-color: #5340fc;
+    border-radius: 3px;
+    font-size: 11px;
+    height: 30px;
+    width: 50px;
+    padding: 6px;
+}
+
+.links{
+    color: black;
+    size: 20px;
+}
+
+.search_form{
+    text-align: right;
+    padding: 30px;
+}
+
+
+
+.ask_link{
+            color: black;
+            text-align: center;
+            padding: 20px;
+}
+.vote_button{
+    background-color: #5340fc;
+    border-radius: 3px;
+    font-size: 13px;
+    height: 30px;
+    width: 50px;
+    padding: 6px;
+}
+
+
+/*#link:visited {*/
+/*            color: #03001e;*/
+/*}*/
+
+/*#link:hover,*/
+/*#link:active,*/
+/*#link:focus {*/
+/*    color: #ffffff;*/
+/*}*/
+/*#link2 {*/
+/*    color: blanchedalmond;*/
+/*}*/
+/*#link2:focus {*/
+/*    color: darkgoldenrod;*/
+/*}*/
+/*#link2{*/
+/*    font-size: larger;*/
+/*}*/
+
+/*#link:link,*/
+/*#link:visited,*/
+/*#link:hover,*/
+/*#link:active {*/
+/*    text-decoration: none;*/
+/*}*/
+.vote_button{
+    background-color: #5340fc;
+    border-radius: 3px;
+    font-size: 13px;
+    height: 30px;
+    width: 50px;
+    padding: 6px;
+}
+
+/*#link3:visited,active{*/
+/*    color: white;*/
+/*}*/
