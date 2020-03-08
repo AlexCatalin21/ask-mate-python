@@ -3,7 +3,7 @@ import connection
 @connection.connection_handler
 def title_and_message(cursor, id):
     cursor.execute(f"""
-                    SELECT title, message FROM question
+                    SELECT * FROM question
                     WHERE id = {id};
                     """)
     final_list = cursor.fetchall()
