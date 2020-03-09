@@ -1,113 +1,98 @@
 h1 {
-    color: black;
     background-color: white;
-    text-transform: uppercase;
     text-align: center;
     padding: 30px;
-    font-family: "Abyssinica SIL" , Geneva;
-    font-style: italic;
+    margin-right: 100px;
+    margin-left: 100px;
+    margin-bottom: 60px;
+    font-family: Arial;
     font-weight: bolder;
+    border-radius: 0px 0px 5px 5px;
 }
-header{
-    background-image: radial-gradient(black,white);
-    padding: 30px;
-    margin: 20px;
-
+.fa-facebook{
+    color: #0336FF;
+    position: relative;
+    margin-left: 60%;
+}
+.fa-instagram, .fa-twitter{
+    color: #0336FF;
+    position: relative;
+    margin-left: 2%;
 }
 body{
-            background-image: url("/static/image/main_img.jpg");
-            background-size: cover;
-        }
+    background-color: #0336FF;
+}
 
 table{
-            border: inset dimgrey;
-            width: 90%;
-            background-image: url("/static/image/table_bcg.jpg") ;
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin-left: auto;
-            margin-right: auto;
-        }
-td,th{
-            border: inset dimgrey;
-            text-align: center;
-            padding: 8px;
-        }
+    margin-left: 10px ;
+    margin-right: 10px;
+    background-color: white ;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+td{
+    border-bottom: 1px solid;
+    text-align: center;
+    padding: 12px;
+}
 
 th{
-    background-color: #f5d837;
+    color: white;
+    background-color: #0D47A1;
     font-size: large;
     font-family: Geneva, serif;
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid;
 }
 
-.links{
-    color: black;
-    size: 20px;
+.order_form{
+    position: absolute;
+    right: 1%;
 }
-
-.search_form{
-    text-align: right;
-    padding: 30px;
-}
-
-
 
 .ask_link{
-            color: black;
-            text-align: center;
-            padding: 20px;
+    color: black;
+    text-align: center;
+    padding: 20px;
 }
-.vote_button{
-    background-color: #5340fc;
-    border-radius: 3px;
-    font-size: 13px;
-    height: 30px;
-    width: 50px;
-    padding: 6px;
+div{
+    display: inline-block;
+    color: white;
 }
-
 mark{
-    background-color: aqua;
+    color:white;
+    background-color: #0336FF;
+    border-radius: 5px;
 }
 
-.title{
-    width: 200px;
+.myButton {
+	box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #faf1b9 5%, #ffab23 100%);
+	background-color:#faf1b9;
+	border-radius:6px;
+	border:1px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color: black;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+    text-decoration-color: black  ;
+	padding:6px 45px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+    position: relative;
+    left: 22.7%;
 }
-
-/*#link:visited {*/
-/*            color: #03001e;*/
-/*}*/
-
-/*#link:hover,*/
-/*#link:active,*/
-/*#link:focus {*/
-/*    color: #ffffff;*/
-/*}*/
-/*#link2 {*/
-/*    color: blanchedalmond;*/
-/*}*/
-/*#link2:focus {*/
-/*    color: darkgoldenrod;*/
-/*}*/
-/*#link2{*/
-/*    font-size: larger;*/
-/*}*/
-
-/*#link:link,*/
-/*#link:visited,*/
-/*#link:hover,*/
-/*#link:active {*/
-/*    text-decoration: none;*/
-/*}*/
-.vote_button{
-    background-color: #5340fc;
-    border-radius: 3px;
-    font-size: 13px;
-    height: 30px;
-    width: 50px;
-    padding: 6px;
+.myButton:hover {
+	background:linear-gradient(to bottom, #ffab23 5%, #faf1b9 100%);
+	background-color:#ffab23;
 }
-
-/*#link3:visited,active{*/
-/*    color: white;*/
-/*}*/
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+ .fa-pencil-alt{
+     color: #0336FF;
+ }
