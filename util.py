@@ -76,6 +76,30 @@ def remove_coment(cursor, comment_id):
                     """)
 
 @connection.connection_handler
+def remove_comment_of_question(cursor, question_id):
+    cursor.execute(f"""
+                    DELETE FROM comment
+                    WHERE question_id = {question_id};
+                    """)
+
+@connection.connection_handler
+def remove_comment_of_answer(cursor, answer_id):
+    cursor.execute(f"""
+                    DELETE FROM comment
+                    WHERE answer_id= {answer_id};
+                    """)
+
+@connection.connection_handler
+def get_question_id_from_ans(cursor, question_id):
+    cursor.execute(f"""
+                    SELECT id FROM answer
+                    WHERE question_id={question_id};
+                    """)
+    id_of_answer = cursor.fetchall()
+    return id_of_answer
+
+
+@connection.connection_handler
 def get_question_id_by_comm(cursor, comment_id):
     cursor.execute(f"""
                     SELECT question_id FROM comment
