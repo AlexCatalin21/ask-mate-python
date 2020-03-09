@@ -17,6 +17,7 @@ def main_page():
         return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase)
     return render_template('index.html', table_elements=util.sort_questions())
 
+
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
     util.increase_view(question_id)
@@ -31,9 +32,13 @@ def new_answers(question_id):
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 
-@app.route("/question/<question_id>/delete", methods=["GET", "POST","DELETE"])
+@app.route("/question/<question_id>/delete", methods=["GET", "POST"])
 def remove_a_question(question_id):
     if request.method == 'GET':
+        for dictionar in util.get_question_id_from_ans(question_id):
+            answer_id=dictionar['id']
+            util.remove_comment_of_answer(answer_id)
+        util.remove_comment_of_question(question_id)
         util.remove_answer(question_id)
         util.remove_question(question_id)
     return redirect(url_for('main_page'))
