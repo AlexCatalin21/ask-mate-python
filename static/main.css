@@ -35,17 +35,9 @@ td,th{
         }
 
 th{
-    background-image: linear-gradient(red,white);
+    background-color: #f5d837;
     font-size: large;
     font-family: Geneva, serif;
-}
-.vote_button{
-    background-color: #5340fc;
-    border-radius: 3px;
-    font-size: 11px;
-    height: 30px;
-    width: 50px;
-    padding: 6px;
 }
 
 .links{
@@ -74,6 +66,13 @@ th{
     padding: 6px;
 }
 
+mark{
+    background-color: aqua;
+}
+
+.title{
+    width: 200px;
+}
 
 /*#link:visited {*/
 /*            color: #03001e;*/

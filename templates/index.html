@@ -33,7 +33,7 @@
             <th>Submission Time</th>
             <th>View Number</th>
             <th>Vote Number</th>
-            <th>Title</th>
+            <th class="title">Title</th>
             <th>Message</th>
             <th>Image</th>
         </tr>
@@ -47,13 +47,11 @@
                 <td>
                     <div>
                         <div>
-                            <button class="vote_button">
-                                <a class="links" href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a>
-                            </button>
+                            <a href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a>
                         </div>
                         <div>
                             <a  href="/question/{{dictionar['id']}}">
-                                {% if search_phrase == Null: %}
+                                {% if search_phrase == Null or search_phrase =="": %}
                                     {{dictionar['title']}}
                                 {% else: %}
                                     {{dictionar['title'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
@@ -61,14 +59,12 @@
                                 </a>
                         </div>
                         <div>
-                            <button class="vote_button">
-                                <a class="links" href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i>
-
-</a></button>
+                                <a href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i>
+                                </a>
                         </div>
                     </div>
                 </td>
-                <td>{% if search_phrase == Null: %}
+                <td>{% if search_phrase == Null or search_phrase =="": %}
                                     {{dictionar['message']}}
                                 {% else: %}
                                     {{dictionar['message'].replace(search_phrase, '<mark>'+search_phrase+'</mark>')|safe}}
