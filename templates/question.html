@@ -8,80 +8,65 @@
     <link rel="stylesheet" href="/static/question.css" type="text/css">
 </head>
 <body>
-    <h1>Question {{question_id}}</h1><br>
+    <h1><a  style="text-decoration: none; color: black" href="/"> Ask<mark>mate</mark> </a>
+    <i class="fab fa-facebook";></i>
+    <i class="fab fa-instagram"></i>
+    <i class="fab fa-twitter"></i></h1>
+    <h2>Question {{question_id}}</h2><br>
     <div class="header">
         <h2>
-            <a class="header_link" href="/">Back to main page</a><br>
-        <a class="header_link" href="/question/{{question_id}}/new-answer">Answer the question</a></h2>
-        <h2><a class="header_link" href="/question/{{question_id}}/new-comment">Add a comment</a><br>
-        <a class="header_link" href="/question/{{question_id}}/delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete this question</a></h2><br>
+            <a class="quest_link" href="/question/{{question_id}}/new-answer">Answer the question</a><br>
+            <a class="quest_link" href="/question/{{question_id}}/new-comment">Add a comment</a><br>
+            <a class="quest_link" href="/question/{{question_id}}/delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete this question</a>
+        </h2><br>
      </div>
         <div>
-            <table class="cinereousTable">
-                <tr>
-                    <th>Title</th>
-                    <td>{{question_elements[0]['title']}}</td>
-                </tr>
-                <tr>
-                    <th>Message</th>
-                    <td>{{question_elements[0]['message']}}</td>
-                </tr>
-                <tr>
-                    <th> Answers </th>
-                    <td>
-                        <table class="inner_table">
-                            <tr>
+            <h3>
+            <p><strong>{{question_elements[0]['title']}}</strong></p>
+            <p>{{question_elements[0]['submission_time']}} Votes: {{question_elements[0]['vote_number']}}</p>
+            </h3>
+            <p>Message:</p>
+            <p class="a">{{question_elements[0]['message']}}</p>
+            Answers:<br>
 
-                                {% for answers in answer_elements: %}
-                                {% if question_id|int == answers["question_id"]|int: %}
-                                <td>
-                                <strong>Answer:</strong>{{answers["message"]}} <a href="/answer/{{answers['id']}}/edit"> EDIT ANSWER</a><br>
+            {% for answers in answer_elements: %}
+            {% if question_id|int == answers["question_id"]|int: %}
+            <table>
+            <tr>
+                <td>{{answers["message"]}}
+                    <p>
+                        <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_up"><i class="far fa-thumbs-up"></i></a>
+                        Vote number: {{answers['vote_number']}}
+                        <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_down"><i class="far fa-thumbs-down"></i></a>
+                    </p>
+                    <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+                    <a class="quest_link" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
+                    <strong>Comments:</strong><br>
+                    {% for comm in comments: %}
+                          {% if answers['id']| int == comm['answer_id']| int %}
+                                <p class="b">{{comm["submission_time"]}}</p>
+                                <p class="b">{{comm["message"]}}</p>
+                                <a class="comm_link" href="/comments/{{comm['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
+                                <a class="comm_link" href="/comment/{{comm['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit comment</a>
+                         {% endif %}
+                        {% endfor %}
 
-                                <p>
-
-                                        <a class="like" href="/answer/{{answers['id']}}/{{question_id}}/vote_up"><i class="far fa-thumbs-up"></i></a>
-
-
-                                    Vote number: {{answers['vote_number']}}
-
-
-                                        <a class="dislike" href="/answer/{{answers['id']}}/{{question_id}}/vote_down"><i class="far fa-thumbs-down"></i></a>
-
-                                </p>
-                                <strong>Comment:</strong>
-                                <p>{% for comm in comments: %}
-                                    {% if answers['id']| int == comm['answer_id']| int %}
-                                <h4 class="submission">{{comm["submission_time"]}}</h4>
-                            <h4 class="comment">{{comm["message"]}}</h4><a href="/comments/{{comm['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
-                                <a href="/comment/{{comm['id']}}/edit"> Edit comment</a><br>
-                                    {% endif %}
-                                {% endfor %}</p>
-                                <a href="/answer/{{answers['id']}}/new-comment"> ADD COMMENT</a><br>
-                             </td>
-                            </tr>
-                                {% endif %}
-                                {% endfor %}
-
-                        </table>
-                    </td>
-                    <br>
-                    <tr>
-                        <th><div class="queston_comments"><stron>Question comments: </stron></div></th>
-                        <td>
-                            {% for comment in comments: %}
-                                {% if question_id|int == comment["question_id"]: %}
-                                    <h4 class="submission">{{comment["submission_time"]}}</h4>
-                                    <h4 class="comment">{{comment["message"]}}</h4>
-                                    <a href="/comments/{{comment['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
-                                    <a href="/comment/{{comment['id']}}/edit"> Edit comment</a><br>
-                                {% endif %}
-                            {% endfor %}
-                        </td>
-                    </tr>
-                </tr>
+                </td>
+            </tr>
+                {% endif %}
+                {% endfor %}
             </table>
+            <br><br>
+            <div><strong>Question comments: </strong></div>
+            {% for comment in comments: %}
+                {% if question_id|int == comment["question_id"]: %}
+                    <p>{{comment["submission_time"]}}</p>
+                    <p class="b">{{comment["message"]}}</p>
+                    <a class="comm_quest_link" href="/comments/{{comment['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
+                    <a class="comm_quest_link" href="/comment/{{comment['id']}}/edit"> Edit comment</a><br>
+            {% endif %}
+            {% endfor %}
             </div>
-            <br>
 
 
 </body>
