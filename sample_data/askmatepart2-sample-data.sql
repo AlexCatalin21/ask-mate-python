@@ -25,7 +25,8 @@ CREATE TABLE question (
     vote_number integer,
     title text,
     message text,
-    image text
+    image text,
+    PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS public.answer;
@@ -86,10 +87,10 @@ ALTER TABLE ONLY comment
 ALTER TABLE ONLY answer
     ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
 
-ALTER TABLE ONLY question_tag
+ALTER TABLE ONLY comment
     ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
 
-ALTER TABLE ONLY comment
+ALTER TABLE ONLY question_tag
     ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
 
 ALTER TABLE ONLY question_tag
