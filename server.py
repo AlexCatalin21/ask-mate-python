@@ -133,6 +133,7 @@ def registration():
     if request.method == 'POST':
         name = request.form['username']
         password = request.form['psw']
+        password = util.hash_password(password)
         data_manager.insert_user(name,password)
         return redirect(url_for('main_page'))
     return render_template('registration.html')
