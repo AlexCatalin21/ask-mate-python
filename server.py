@@ -139,6 +139,15 @@ def registration():
     return render_template('registration.html')
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        user = request.form['uname']
+        psw = request.form['psw']
+        for users in util.get_users():
+            if user == users['name']:
+                util.verify_password(psw, util.chech_credentials(user)['password'])
+                    return 
 
 if __name__ == '__main__':
     app.run(

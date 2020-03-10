@@ -132,9 +132,24 @@ def search_a_phrase(cursor, phrase):
     result=cursor.fetchall()
     return result
 
+@connection.connection_handler
+def get_users(cursor):
+    cursor.execute(f"""
+                    SELECT name FROM users
+                    """)
+    result = cursor.fetchall()
+    return result
+
+@connection.connection_handler
+def chech_credentials(cursor, user):
+    cursor.execute(f"""
+                    SELECT password FROM users
+                    WHERE name = {user};
+                    """)
+    result = cursor.fetchone()
+    return result
 
 def hash_password(plain_text_password):
-    # By using bcrypt, the salt is saved into the hash itself
     hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
     return hashed_bytes.decode('utf-8')
 
