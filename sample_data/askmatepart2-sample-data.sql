@@ -65,6 +65,15 @@ CREATE TABLE tag (
     name text
 );
 
+CREATE TABLE users(
+    id serial NOT NULL ,
+    name VARCHAR(20) NOT NULL ,
+    password VARCHAR(15) NOT NULL ,
+    registration_date timestamp without time zone
+);
+
+ALTER TABLE only users
+    ADD CONSTRAINT pk_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY answer
     ADD CONSTRAINT pk_answer_id PRIMARY KEY (id);

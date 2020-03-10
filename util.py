@@ -98,7 +98,6 @@ def get_question_id_from_ans(cursor, question_id):
     id_of_answer = cursor.fetchall()
     return id_of_answer
 
-
 @connection.connection_handler
 def get_question_id_by_comm(cursor, comment_id):
     cursor.execute(f"""
@@ -132,4 +131,5 @@ def search_a_phrase(cursor, phrase):
                         WHERE message LIKE '%{phrase}%' OR title LIKE '%{phrase}%';""")
     result=cursor.fetchall()
     return result
+
 
