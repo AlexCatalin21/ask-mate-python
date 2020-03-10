@@ -128,6 +128,15 @@ def remove_a_comment(comment_id):
         util.remove_coment(comment_id)
     return redirect(url_for('show_questions', question_id=question_id))
 
+@app.route('/registration',methods=['GET','POST'])
+def registration():
+    if request.method == 'POST':
+        name = request.form['username']
+        password = request.form['psw']
+        data_manager.insert_user(name,password)
+        return redirect(url_for('main_page'))
+    return render_template('registration.html')
+
 
 
 if __name__ == '__main__':
