@@ -1,6 +1,6 @@
 import data_manager, sorting_functions, util
 
-from flask import Flask, render_template, request, redirect, url_for, session, escape
+from flask import Flask, render_template, request, redirect, url_for, session, escape, flash
 
 app = Flask(__name__)
 
@@ -145,17 +145,17 @@ def registration():
 def show_users():
     return render_template('users_list.html',table_elements=data_manager.read_from_table('users'))
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['uname']
-        session['password'] = request.form['psw']
-        for users in util.get_users():
-            if session['username'] == users['username']:
-                passs = util.check_credentials(session['username'])['password']
-                if util.verify_password(session['password'], passs):
-                    return redirect(url_for('main_page'))
-    return redirect(url_for('main_page'))
+        if util.confirm_user(request.form['uname']):
+            session['username'] = request.form['uname']
+            session['password'] = request.form['psw']
+            passs = util.check_credentials(session['username'])['password']
+            if util.verify_password(session['password'], passs):
+                return redirect(url_for('main_page'))
+        return redirect(url_for('main_page'))
+
 
 @app.route('/logout')
 def logout():

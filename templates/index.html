@@ -85,10 +85,10 @@
             {% endfor%}
         </tbody>
     </table>
-    <a style="color: white" href="/registration"> Register</a>
     {%if username != NULL%}
         <a href="/logout"><button class="myButton">Logout</button></a>
     {%else%}
+        <a style="color: white" href="/registration"> Register</a>
         <button class="myButton" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
     {%endif%}
     <div id="id01" class="modal">

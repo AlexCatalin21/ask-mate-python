@@ -133,12 +133,17 @@ def search_a_phrase(cursor, phrase):
     return result
 
 @connection.connection_handler
-def get_users(cursor):
+def confirm_user(cursor, usrname):
     cursor.execute(f"""
                     SELECT username FROM users
+                    WHERE username = '{usrname}'; 
                     """)
     result = cursor.fetchall()
-    return result
+    if result != []:
+        return True
+    else:
+        return False
+
 
 @connection.connection_handler
 def check_credentials(cursor, user):
