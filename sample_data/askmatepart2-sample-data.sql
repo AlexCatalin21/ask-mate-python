@@ -26,6 +26,7 @@ CREATE TABLE question (
     title text,
     message text,
     image text,
+    user_id integer,
     PRIMARY KEY (id)
 );
 
@@ -37,7 +38,8 @@ CREATE TABLE answer (
     vote_number integer,
     question_id integer,
     message text,
-    image text
+    image text,
+    user_id integer
 );
 
 DROP TABLE IF EXISTS public.comment;
@@ -48,7 +50,8 @@ CREATE TABLE comment (
     answer_id integer,
     message text,
     submission_time timestamp without time zone,
-    edited_count integer
+    edited_count integer,
+    user_id integer
 );
 
 
@@ -104,6 +107,18 @@ ALTER TABLE ONLY question_tag
 
 ALTER TABLE ONLY question_tag
     ADD CONSTRAINT fk_tag_id FOREIGN KEY (tag_id) REFERENCES tag(id);
+
+ALTER TABLE ONLY question
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY answer
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY comment
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+
 
 INSERT INTO question VALUES (0, '2017-04-28 08:29:00', 29, 7, 'How to make lists in Python?', 'I am totally new to this, any hints?', NULL);
 INSERT INTO question VALUES (1, '2017-04-29 09:19:00', 15, 9, 'Wordpress loading multiple jQuery Versions', 'I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $(".myBook").booklet();

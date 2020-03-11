@@ -50,6 +50,7 @@
             <th style="width: 250px">Title</th>
             <th>Message</th>
             <th>Image</th>
+            <th>User</th>
         </tr>
         <tbody>
             {% for dictionar in table_elements: %}
@@ -82,6 +83,7 @@
                                     {{dictionar['message'].replace(search_phrase, '<mark style="background-color: #0336FF">'+search_phrase+'</mark>')|safe}}
                                 {% endif %}</td>
                 <td>{{dictionar['image']}}</td>
+                <td>{{dictionar['username']}}</td>
             {% endfor%}
         </tbody>
     </table>

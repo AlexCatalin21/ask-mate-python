@@ -52,7 +52,7 @@ def add_question():
     if request.method == 'POST':
         message = request.form['message']
         title = request.form['title']
-        data_manager.write_to_questions(message, title)
+        data_manager.write_to_questions(message, title,util.get_username_id(session['username']))
         question_id = data_manager.generate_id()
         return redirect(url_for('show_questions', question_id = question_id))
     return render_template('add-question.html')
