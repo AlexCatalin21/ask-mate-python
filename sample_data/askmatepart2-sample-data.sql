@@ -26,6 +26,7 @@ CREATE TABLE question (
     title text,
     message text,
     image text,
+    user_id integer,
     PRIMARY KEY (id)
 );
 
@@ -37,6 +38,7 @@ CREATE TABLE answer (
     vote_number integer,
     question_id integer,
     message text,
+    user_id integer,
     image text
 );
 
@@ -48,7 +50,8 @@ CREATE TABLE comment (
     answer_id integer,
     message text,
     submission_time timestamp without time zone,
-    edited_count integer
+    edited_count integer,
+    user_id integer
 );
 
 
@@ -89,6 +92,15 @@ ALTER TABLE ONLY question_tag
 
 ALTER TABLE ONLY tag
     ADD CONSTRAINT pk_tag_id PRIMARY KEY (id);
+
+ALTER TABLE ONLY question
+    ADD CONSTRAINT fk_question_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY answer
+    ADD CONSTRAINT fk_answer_id FOREIGN KEY (user_id) REFERENCES users(id);
+
+ALTER TABLE ONLY comment
+    ADD CONSTRAINT fk_comment_id FOREIGN KEY (user_id) REFERENCES users(id);
 
 ALTER TABLE ONLY comment
     ADD CONSTRAINT fk_answer_id FOREIGN KEY (answer_id) REFERENCES answer(id);
