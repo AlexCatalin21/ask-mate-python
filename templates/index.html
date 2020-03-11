@@ -14,6 +14,11 @@
  <i class="fab fa-twitter"></i></h1>
 
     <div>
+        {%if username != ""%}
+            {{username}}
+        {%endif%}
+    </div>
+    <div>
         <form style="margin-left: 10px" class="search_form" action="/search" method="GET">
             <input style="width: 300px" type="text" name="phrase">
             <input type="submit" value="Search" />
@@ -81,9 +86,12 @@
         </tbody>
     </table>
     <a style="color: white" href="/registration"> Register</a>
-    <button class="myButton" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    {%if username != NULL%}
+        <a href="/logout"><button class="myButton">Logout</button></a>
+    {%else%}
+        <button class="myButton" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    {%endif%}
     <div id="id01" class="modal">
-
   <form class="modal-content animate" action="/login" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>

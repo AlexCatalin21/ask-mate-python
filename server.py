@@ -1,22 +1,25 @@
 import data_manager, sorting_functions, util
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, escape
 
 app = Flask(__name__)
+
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/', methods=["GET", "POST"])
 @app.route('/list', methods=["GET", "POST"])
 @app.route('/search')
 def main_page():
-    if request.method == 'POST':
-        order = request.form['order']
-        return render_template('index.html', table_elements=util.sort_questions(order))
-    if request.args:
-        search_phrase=request.args.get('phrase')
-        util.search_a_phrase(search_phrase)
-        return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase)
+    if 'username' in session:
+        if request.method == 'POST':
+            order = request.form['order']
+            return render_template('index.html', table_elements=util.sort_questions(order), username = session['username'])
+        if request.args:
+            search_phrase=request.args.get('phrase')
+            util.search_a_phrase(search_phrase)
+            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase, username = session['username'])
+        return render_template('index.html', table_elements=util.sort_questions(), username = session['username'])
     return render_template('index.html', table_elements=util.sort_questions())
-
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
@@ -141,6 +144,24 @@ def registration():
 @app.route('/users_list')
 def show_users():
     return render_template('users_list.html',table_elements=data_manager.read_from_table('users'))
+
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['uname']
+        session['password'] = request.form['psw']
+        for users in util.get_users():
+            if session['username'] == users['username']:
+                passs = util.check_credentials(session['username'])['password']
+                if util.verify_password(session['password'], passs):
+                    return redirect(url_for('main_page'))
+    return redirect(url_for('main_page'))
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('main_page'))
 
 if __name__ == '__main__':
     app.run(

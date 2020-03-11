@@ -144,7 +144,7 @@ def get_users(cursor):
 def check_credentials(cursor, user):
     cursor.execute(f"""
                     SELECT password FROM users
-                    WHERE username = {user};
+                    WHERE username = '{user}';
                     """)
     result = cursor.fetchone()
     return result
