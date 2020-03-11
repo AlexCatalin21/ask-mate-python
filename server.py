@@ -138,16 +138,9 @@ def registration():
         return redirect(url_for('main_page'))
     return render_template('registration.html')
 
-
-@app.route('/login', methods=['POST'])
-def login():
-    if request.method == 'POST':
-        user = request.form['uname']
-        psw = request.form['psw']
-        for users in util.get_users():
-            if user == users['name']:
-                util.verify_password(psw, util.chech_credentials(user)['password'])
-                    return 
+@app.route('/users_list')
+def show_users():
+    return render_template('users_list.html',table_elements=data_manager.read_from_table('users'))
 
 if __name__ == '__main__':
     app.run(

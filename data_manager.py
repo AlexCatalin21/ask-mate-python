@@ -62,6 +62,6 @@ def comment_for_answer(cursor, message, answer_id):
 def insert_user(cursor,name,password):
     submission_time = datetime.now()
     cursor.execute("""
-                        INSERT INTO users (name, password, registration_date)
+                        INSERT INTO users (username, password, registration_date)
                         VALUES (%s,%s,%s);
                         """,(name,password,submission_time))

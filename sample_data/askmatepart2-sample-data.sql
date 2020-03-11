@@ -67,7 +67,7 @@ CREATE TABLE tag (
 
 CREATE TABLE users(
     id serial NOT NULL ,
-    name VARCHAR(150) NOT NULL UNIQUE,
+    username VARCHAR(150) NOT NULL UNIQUE ,
     password VARCHAR(150) NOT NULL ,
     registration_date timestamp without time zone
 );

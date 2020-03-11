@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Registration Time</th>
+    </tr>
+    <tbody>
+    {% for users in table_elements: %}
+        <tr>
+            <td>{{users['id']}}</td>
+            <td>{{users['username']}}</td>
+            <td>{{users['password']}}</td>
+            <td>{{users['registration_date']}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

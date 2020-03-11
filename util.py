@@ -135,16 +135,16 @@ def search_a_phrase(cursor, phrase):
 @connection.connection_handler
 def get_users(cursor):
     cursor.execute(f"""
-                    SELECT name FROM users
+                    SELECT username FROM users
                     """)
     result = cursor.fetchall()
     return result
 
 @connection.connection_handler
-def chech_credentials(cursor, user):
+def check_credentials(cursor, user):
     cursor.execute(f"""
                     SELECT password FROM users
-                    WHERE name = {user};
+                    WHERE username = {user};
                     """)
     result = cursor.fetchone()
     return result
