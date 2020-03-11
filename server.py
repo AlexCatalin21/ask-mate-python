@@ -13,13 +13,13 @@ def main_page():
     if 'username' in session:
         if request.method == 'POST':
             order = request.form['order']
-            return render_template('index.html', table_elements=util.sort_questions(order), username = session['username'])
+            return render_template('index.html', table_elements=util.sort_questions(order), username = session['username'],user_id=util.get_username_id(session['username']))
         if request.args:
             search_phrase=request.args.get('phrase')
             util.search_a_phrase(search_phrase)
-            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase, username = session['username'])
-        return render_template('index.html', table_elements=util.sort_questions(), username = session['username'])
-    return render_template('index.html', table_elements=util.sort_questions())
+            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase, username = session['username'],user_id=util.get_username_id(session['username']))
+        return render_template('index.html', table_elements=util.sort_questions(), username = session['username'],user_id=util.get_username_id(session['username']))
+    return render_template('index.html', table_elements=util.sort_questions(),user_id=util.get_username_id(session['username']))
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
@@ -106,7 +106,7 @@ def edit_comment(comment_id):
 def add_comment_to_question(question_id):
     if request.method == 'POST':
        message = request.form['message']
-       data_manager.comment_for_question(message, question_id)
+       data_manager.comment_for_question(message, question_id, util.get_username_id(session['username']))
        return redirect(url_for('show_questions', question_id=question_id))
     return render_template("comment_for_question.html", question_id=question_id)
 
@@ -115,7 +115,7 @@ def add_comment_to_question(question_id):
 def add_comment_to_answer(answer_id):
     if request.method == 'POST':
        message = request.form['message']
-       data_manager.comment_for_answer(message, answer_id)
+       data_manager.comment_for_answer(message, answer_id, util.get_username_id(session['username']))
        return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
     return render_template("comment_for_answer.html", answer_id=answer_id)
 
@@ -162,6 +162,11 @@ def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
     return redirect(url_for('main_page'))
+
+@app.route('/user/<user_id>')
+def show_user_info(user_id):
+    return render_template('user_page.html',question_elements=util.get_question_by_user_id(user_id), answer_elements=util.get_answer_by_user_id(user_id), comment_elements=util.get_comment_by_user_id(user_id))
+
 
 if __name__ == '__main__':
     app.run(

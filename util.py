@@ -30,6 +30,24 @@ def comment_elements(cursor):
 
 
 @connection.connection_handler
+def answer_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  answer.id, submission_time, vote_number, question_id, message,image, users.username FROM answer 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+@connection.connection_handler
+def comment_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  comment.id, question_id, answer_id, message,submission_time, users.username FROM comment 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+@connection.connection_handler
 def remove_question(cursor,id):
     cursor.execute(f"""
                     DELETE FROM question
@@ -201,3 +219,31 @@ def get_username_by_id(cursor,id):
                     ''')
     result=cursor.fetchone()
     return result['username']
+
+@connection.connection_handler
+def get_question_by_user_id(cursor,user_id):
+    cursor.execute(f'''
+                    SELECT submission_time, view_number, vote_number, title, message FROM question
+                    WHERE user_id='{user_id}'
+                    ''')
+    result=cursor.fetchall()
+    return result
+
+@connection.connection_handler
+def get_answer_by_user_id(cursor,user_id):
+    cursor.execute(f'''
+                    SELECT submission_time, vote_number, message FROM answer
+                    WHERE user_id='{user_id}'
+                    ''')
+    result=cursor.fetchall()
+    return result
+
+
+@connection.connection_handler
+def get_comment_by_user_id(cursor,user_id):
+    cursor.execute(f'''
+                    SELECT submission_time, message FROM comment
+                    WHERE user_id='{user_id}'
+                    ''')
+    result=cursor.fetchall()
+    return result
