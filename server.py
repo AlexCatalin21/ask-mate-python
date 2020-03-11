@@ -24,14 +24,14 @@ def main_page():
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
     util.increase_view(question_id)
-    return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id), answer_elements= data_manager.read_from_table('answer'), question_id=question_id,  comments = data_manager.read_from_table('comment'))
+    return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id), answer_elements= util.answer_elements(), question_id=question_id,  comments = util.comment_elements())
 
 
 @app.route('/question/<question_id>/new-answer', methods=["GET", "POST"])
 def new_answers(question_id):
     if request.method == 'POST':
         message = request.form['message']
-        data_manager.write_to_answers(question_id, message)
+        data_manager.write_to_answers(question_id, message, util.get_username_id(session['username']))
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 

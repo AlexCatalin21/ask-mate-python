@@ -33,7 +33,8 @@
             {% if question_id|int == answers["question_id"]|int: %}
             <table>
             <tr>
-                <td>{{answers["message"]}}
+                <td><strong>{{answers['username']}}</strong><br>
+                    {{answers["message"]}}
                     <p>
                         <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_up"><i class="far fa-thumbs-up"></i></a>
                         Vote number: {{answers['vote_number']}}

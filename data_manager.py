@@ -18,14 +18,14 @@ def read_from_table(cursor, table):
 
 
 @connection.connection_handler
-def write_to_answers(cursor, question_id, message):
+def write_to_answers(cursor, question_id, message,user_id):
     image = 'None'
     vote_number = 0
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                    INSERT INTO answer (submission_time, vote_number, question_id, message, image) VALUES (%s, %s, %s, %s, %s);
-                    """, (submission_time, vote_number, question_id, message, image))
+                    INSERT INTO answer (submission_time, vote_number, question_id, message, image,user_id) VALUES (%s, %s, %s, %s, %s, %s);
+                    """, (submission_time, vote_number, question_id, message, image, user_id))
 
 
 @connection.connection_handler

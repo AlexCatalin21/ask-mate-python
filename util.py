@@ -9,6 +9,26 @@ def sort_questions(cursor, header='submission_time'):
     sorted_list = cursor.fetchall()
     return sorted_list
 
+
+@connection.connection_handler
+def answer_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  answer.id, submission_time, vote_number, question_id, message,image, users.username FROM answer 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+@connection.connection_handler
+def comment_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  comment.id, question_id, answer_id, message,submission_time, users.username FROM comment 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+
 @connection.connection_handler
 def remove_question(cursor,id):
     cursor.execute(f"""
