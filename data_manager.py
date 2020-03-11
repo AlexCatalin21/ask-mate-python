@@ -29,33 +29,33 @@ def write_to_answers(cursor, question_id, message):
 
 
 @connection.connection_handler
-def write_to_questions(cursor, message, title):
+def write_to_questions(cursor, message, title,user_id):
     view_number = 0
     vote_number = 0
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     image = 'None'
     cursor.execute("""
-                        INSERT INTO question (submission_time, view_number, vote_number, title, message, image) VALUES(%s, %s, %s, %s, %s, %s);
-                        """, (submission_time, view_number, vote_number, title, message, image))
+                        INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id) VALUES(%s, %s, %s, %s, %s, %s, %s);
+                        """, (submission_time, view_number, vote_number, title, message, image,user_id))
 
 
 @connection.connection_handler
-def comment_for_question(cursor, message, question_id):
+def comment_for_question(cursor, message, question_id, user_id):
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                        INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) VALUES(%s, NULL, %s, %s, NULL);
-                        """, (question_id, message, submission_time))
+                        INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count, user_id) VALUES(%s, NULL, %s, %s, NULL, %s);
+                        """, (question_id, message, submission_time, user_id))
 
 
 @connection.connection_handler
-def comment_for_answer(cursor, message, answer_id):
+def comment_for_answer(cursor, message, answer_id, user_id):
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
-                        INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count) VALUES(NULL ,%s, %s, %s, NULL);
-                        """, (answer_id, message, submission_time))
+                        INSERT INTO comment (question_id, answer_id, message, submission_time, edited_count, user_id) VALUES(NULL ,%s, %s, %s, NULL, %s);
+                        """, (answer_id, message, submission_time, user_id))
 
 
 @connection.connection_handler

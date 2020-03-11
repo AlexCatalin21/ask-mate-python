@@ -2,9 +2,28 @@ import data_manager, connection, bcrypt
 
 @connection.connection_handler
 def sort_questions(cursor, header='submission_time'):
-    cursor.execute(f""" SELECT * FROM question
-                    ORDER BY {header} DESC 
-                     LIMIT 5; """)
+    cursor.execute(f""" SELECT question.id,submission_time,view_number,vote_number,title,message,users.username FROM question
+                            LEFT JOIN users ON (users.id=user_id)
+                        ORDER BY {header} DESC 
+                        LIMIT 5; """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+@connection.connection_handler
+def answer_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  answer.id, submission_time, vote_number, question_id, message,image, users.username FROM answer 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
+    sorted_list = cursor.fetchall()
+    return sorted_list
+
+@connection.connection_handler
+def comment_elements(cursor):
+    cursor.execute(f"""
+                    SELECT  comment.id, question_id, answer_id, message,submission_time, users.username FROM comment 
+                        LEFT JOIN users ON (user_id=users.id)
+                    """)
     sorted_list = cursor.fetchall()
     return sorted_list
 
@@ -162,3 +181,21 @@ def hash_password(plain_text_password):
 def verify_password(plain_text_password, hashed_password):
     hashed_bytes_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_bytes_password)
+
+@connection.connection_handler
+def get_username_id(cursor, usrname):
+    cursor.execute(f'''
+                        SELECT id FROM users
+                        WHERE username = '{usrname}'
+                        ''')
+    result=cursor.fetchone()
+    return result['id']
+
+@connection.connection_handler
+def get_username_by_id(cursor,id):
+    cursor.execute(f'''
+                        SELECT username FROM users
+                        WHERE id = {id}
+                    ''')
+    result=cursor.fetchone()
+    return result['username']
