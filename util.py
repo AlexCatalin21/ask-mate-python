@@ -32,7 +32,7 @@ def comment_elements(cursor):
 @connection.connection_handler
 def answer_elements(cursor):
     cursor.execute(f"""
-                    SELECT  answer.id, submission_time, vote_number, question_id, message,image, users.username FROM answer 
+                    SELECT  answer.id, submission_time, vote_number, question_id, message,image, users.username, marked FROM answer 
                         LEFT JOIN users ON (user_id=users.id)
                     """)
     sorted_list = cursor.fetchall()
@@ -251,7 +251,7 @@ def get_comment_by_user_id(cursor,user_id):
 @connection.connection_handler
 def accept_answer(cursor,answer_id):
     cursor.execute(f'''
-                    UPDATE answer SET marked TRUE
+                    UPDATE answer SET marked=TRUE
                     WHERE id ='{answer_id}';
                     ''')
 

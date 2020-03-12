@@ -37,7 +37,7 @@ def show_questions(question_id):
     if 'username' in session and user_id != None:
         return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id),
                                answer_elements= util.answer_elements(), question_id=question_id,
-                               comments = util.comment_elements(),question_user=util.get_username_by_id(user_id), username=session['username'])
+                               comments = util.comment_elements(),question_user=util.get_username_by_id(user_id), username=session['username'],user_id=util.get_username_id(session['username']))
     return render_template('question.html', question_elements=sorting_functions.title_and_message(question_id),
                            answer_elements=util.answer_elements(), question_id=question_id,
                            comments=util.comment_elements())
@@ -196,10 +196,12 @@ def show_user_info(user_id):
     return render_template('user_page.html',question_elements=util.get_question_by_user_id(user_id), answer_elements=util.get_answer_by_user_id(user_id), comment_elements=util.get_comment_by_user_id(user_id))
 
 
-@app.route('/accept_answer' , methods=['GET','POST'])
-def mark_answer():
+@app.route('/accept_answer/<answer_id>' , methods=['GET','POST'])
+def mark_answer(answer_id):
     if request.method == 'POST':
-        util.accept_answer()
+        util.accept_answer(answer_id)
+    return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
+
 
 
 
