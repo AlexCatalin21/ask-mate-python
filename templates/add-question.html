@@ -4,28 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+            <link rel="stylesheet" href="static/form_page.css">
 </head>
-<body>
-<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-  <div class="card-header">AskMATE</div>
-  <div class="card-body">
+<div class="card-header" style="background-color: #1C738B">
+    <h1>AskMate</h1>
+</div>
+<br><br>
+<body style="background-color: #1EAE98;">
     <div style="text-align: center">
-    <p class="h1">Add a new question</p>
+    <h2 style="text-align:center;">Add a new question</h2>
     <form action="/add_question" method="POST"><br><br><br>
         <p style="text-align:center; font-family: times, serif; font-size:14pt; font-style:italic">Title of the new question:</p><br>
         <input type="text" name="title">
         <br><br>
         <p style="text-align:center; font-family: times, serif; font-size:14pt; font-style:italic">Message:</p><br>
-        <textarea type="text" name="message" rows="4" cols="22"></textarea>
+        <textarea type="text" name="message" rows="4" cols="50"></textarea>
         <br><br>
         <input
             style="transition-duration: 0.4s; background-color: black; color: white; border-radius: 12px; font-size: 16px"
             type="submit" value="Submit">
     </form>
         </div>
-</div>
-</div>
+
 </body>
+
 </html>
