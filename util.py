@@ -272,3 +272,11 @@ def change_reputation(cursor,user_id, points):
                     UPDATE users SET reputation=reputation+{points}
                     WHERE id='{user_id}';
                     """)
+
+@connection.connection_handler
+def remove_answer2(cursor, answer_id):
+    cursor.execute(f"""
+                    DELETE FROM answer
+                    WHERE id = {answer_id};
+                    """)
+

@@ -212,7 +212,12 @@ def mark_answer(answer_id):
             util.change_reputation(util.get_user_id_by_question_id(util.get_question_id(answer_id)), 5)
     return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
 
-
+@app.route('/answer/<answer_id>/delete', methods=['GET','POST'])
+def remove_answer(answer_id):
+    if request.method == 'GET':
+        question_id = util.get_question_id(answer_id)
+        util.remove_answer2(answer_id)
+    return redirect(url_for('show_questions', question_id=question_id))
 
 
 if __name__ == '__main__':

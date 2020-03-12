@@ -17,7 +17,9 @@
         <h2>
             <a class="quest_link" href="/question/{{question_id}}/new-answer">Answer the question</a><br>
             <a class="quest_link" href="/question/{{question_id}}/new-comment">Add a comment</a><br>
+            {% if ('username' in session) and (session['username'] == question_elements[0]['username']): %}
             <a class="quest_link" href="/question/{{question_id}}/delete" onclick="return confirm('Are you sure you want to delete this item?');">Delete this question</a>
+            {%endif%}
         </h2><br>
      </div>
         <div>
@@ -42,10 +44,14 @@
                             <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_down"><i class="far fa-thumbs-down"></i></a>
                         </p>
                     {%endif%}
-                    <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+
                     <a class="quest_link" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
                     {%if answers['marked'] == True: %}
                     <p>Accepted answer</p>
+                    {% if ('username' in session) and (session['username'] == answers['username']): %}
+                            <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+                            <a class="comm_link" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
+                        {%endif%}
                     {% else %}
                         {% if ('username' in session) and (session['username'] == question_user) and (session['username'] != answers['username']): %}
                             <form action="/accept_answer/{{answers['id']}}" method="POST">
@@ -54,16 +60,22 @@
                               <input type="submit" value="Accept">
                             </form>
                         {% endif %}
-                    {% endif %}
+                        {% if ('username' in session) and (session['username'] == answers['username']): %}
+                            <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+                            <a class="comm_link" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
+                        {%endif%}
+                    {% endif %} <br>
                     <strong>Comments:</strong><br>
                     {% for comm in comments: %}
                           {% if answers['id']| int == comm['answer_id']| int %}
                                 <p class="b">{{comm["username"]}}</p>
                                 <p class="b">{{comm["submission_time"]}}</p>
                                 <p class="b">{{comm["message"]}}</p>
+                    {% if ('username' in session)  and (session['username'] == comm['username']): %}
                                 <a class="comm_link" href="/comments/{{comm['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
                                 <a class="comm_link" href="/comment/{{comm['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit comment</a>
-                         {% endif %}
+                        {%endif%}
+                    {% endif %}
                         {% endfor %}
 
                 </td>
@@ -78,8 +90,10 @@
                     <p>{{comment ["username"]}}</p>
                     <p>{{comment["submission_time"]}}</p>
                     <p class="b">{{comment["message"]}}</p>
+              {% if ('username' in session)  and (session['username'] == comment['username']): %}
                     <a class="comm_quest_link" href="/comments/{{comment['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
                     <a class="comm_quest_link" href="/comment/{{comment['id']}}/edit"> Edit comment</a><br>
+            {%endif%}
             {% endif %}
             {% endfor %}
             </div>

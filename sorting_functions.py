@@ -3,8 +3,9 @@ import connection
 @connection.connection_handler
 def title_and_message(cursor, id):
     cursor.execute(f"""
-                    SELECT * FROM question
-                    WHERE id = {id};
+                    SELECT  question.id, question.submission_time, question.view_number, question.vote_number,question.title, question.message, question.image, user_id, users.username FROM question 
+                        LEFT JOIN users ON (user_id=users.id)
+                    WHERE question.id = {id};
                     """)
     final_list = cursor.fetchall()
     return final_list
