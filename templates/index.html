@@ -8,38 +8,68 @@
     <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="static/login_form.css">
 </head>
- <h1><a style="color: #0336FF ; text-decoration: none" href="/"> Ask<mark>mate</mark> </a>
+
+ <h1><a style="color: #0336FF ; text-decoration: none" href="/"> Ask<mark>mate</mark> </a><br>
  <i class="fab fa-facebook";></i>
  <i class="fab fa-instagram"></i>
- <i class="fab fa-twitter"></i></h1>
-
-    <div>
+ <i class="fab fa-twitter"></i>
+  {%if 'username' in session: %}
+      <div>
         {% if 'username' in session: %}
-            <a style="color: white" href="/user/{{user_id}}">{{username}}</a>
+            <h4><a class="user_link" href="/user/{{user_id}}"><i class="fas fa-user"></i>{{username}}</a></h4>
         {%endif%}
-    </div>
-    <div>
-        <form style="margin-left: 10px" class="search_form" action="/search" method="GET">
-            <input style="width: 300px" type="text" name="phrase">
-            <input type="submit" value="Search" />
-        </form>
-    </div>
-<button class="myButton">
-   <i class="fas fa-pencil-alt"></i><a href="/add_question"><strong>Ask your question</strong></a>
-</button>
+      </div>
+      <button class="logout_button" onclick="location.href='/logout'">
+        LOGOUT</strong>
+    </button>
+    {%else%}
+     <button class="registration_button" onclick="location.href='/registration'">
+         Register
+     </button>
+        <button class="logout_button" onclick="document.getElementById('id01').style.display='block'">Login
+        </button>
+    {%endif%}
+ </h1>
+<button class="myButton" onclick="location.href='/users_list'">
+Show Users
+</button><br><br>
 
-    <div>
-        <form class="order_form" action="/" method="POST">Sort by:
-        <select id="order" name="order">
+        <form style="margin-left: 10px" class="search_form" action="/search" method="GET">
+            <div>
+                <div>
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="phrase">
+                </div>
+                <div>
+                    <input type="submit" value="Search" />
+                </div>
+            </div>
+
+        </form>
+
+    <div style="margin-top: 30px">
+        <button class="myButton" onclick="location.href='/add_question'">
+           <i class="fas fa-pencil-alt"></i><strong>Ask your question</strong></a>
+        </button>
+    </div>
+
+
+        <form style="position: absolute; right:10px" action="/" method="POST">
+        <div class="form-row align-items-center">Sort by:
+            <div class="col-auto my-1">
+        <select id="order" name="order" class="custom-select mr-sm-2" >
             <option value="submission_time">Submission time</option>
             <option value="view_number">View number</option>
             <option value="vote_number">Vote number</option>
             <option value="title">Title</option>
             <option value="message">Message</option>
         </select>
-        <input type="submit" value="Sort" />
+            </div>
+            <div>
+       <button type="submit" class="btn btn-primary">Order</button>
+                </div>
+        </div>
     </form>
-    </div>
+
 <h2 align="center" style="color: #ffffff; margin-top: 10px"><strong>QUESTIONS</strong></h2>
     <table>
         <tr>
@@ -89,14 +119,7 @@
             {% endfor%}
         </tbody>
     </table>
-    {%if 'username' in session: %}
-      <button class="myButton">
-        <a href="/logout"><strong>LOGOUT</strong></a>
-    </button>
-    {%else%}
-        <a style="color: white" href="/registration"> Register</a>
-        <button class="myButton" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-    {%endif%}
+
     <div id="id01" class="modal">
   <form class="modal-content animate" action="/login" method="post">
     <div class="imgcontainer">
@@ -114,10 +137,6 @@
       <button class="myButton" type="submit">Login</button>
 
     </div>
-
-    <div class="container" style="background-color:#f1f1f1">
-      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-    </div>
   </form>
 </div>
 
@@ -132,7 +151,6 @@
             }
         }
 </script>
-<a style="color: white" href="/users_list">Show Users</a>
 </body>
 
 </html>

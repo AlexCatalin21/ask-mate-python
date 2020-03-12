@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/question.css" type="text/css">
 </head>
 <body>
-    <h1><a  style="text-decoration: none; color: black" href="/"> Ask<mark>mate</mark> </a>
+    <h1><a  style="text-decoration: none; color: blue" href="/"> Ask<mark>mate</mark> </a>
     <i class="fab fa-facebook";></i>
     <i class="fab fa-instagram"></i>
     <i class="fab fa-twitter"></i></h1>
@@ -45,12 +45,12 @@
                         </p>
                     {%endif%}
 
-                    <a class="quest_link" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
+                    <a style="color: #0336FF" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
                     {%if answers['marked'] == True: %}
                     <p>Accepted answer</p>
                     {% if ('username' in session) and (session['username'] == answers['username']): %}
-                            <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
-                            <a class="comm_link" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
+                            <p><a style="color: #0336FF" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+                            <a style="color: #0336FF" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
                         {%endif%}
                     {% else %}
                         {% if ('username' in session) and (session['username'] == question_user) and (session['username'] != answers['username']): %}
@@ -61,8 +61,8 @@
                             </form>
                         {% endif %}
                         {% if ('username' in session) and (session['username'] == answers['username']): %}
-                            <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
-                            <a class="comm_link" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
+                            <p><a style="color: #0336FF" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
+                            <a style="color: #0336FF" href="/answer/{{answers['id']}}/delete" onclick="return confirm('Are you sure you want to delete this answer?');"><i class="fas fa-trash-alt"></i></a>
                         {%endif%}
                     {% endif %} <br>
                     <strong>Comments:</strong><br>
@@ -72,8 +72,8 @@
                                 <p class="b">{{comm["submission_time"]}}</p>
                                 <p class="b">{{comm["message"]}}</p>
                     {% if ('username' in session)  and (session['username'] == comm['username']): %}
-                                <a class="comm_link" href="/comments/{{comm['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
-                                <a class="comm_link" href="/comment/{{comm['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit comment</a>
+                                <a style="color: #0336FF" href="/comments/{{comm['id']}}/delete" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fas fa-trash-alt"></i></a>
+                                <a style="color: #0336FF" href="/comment/{{comm['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit comment</a>
                         {%endif%}
                     {% endif %}
                         {% endfor %}
