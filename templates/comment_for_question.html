@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Add comment for question</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
-    <body style="background-color:powderblue;">
+    <body class="bg-primary">
         <div style="text-align: center">
-            <h2>Add a comment for question</h2><br><br><br>
+            <p class="h1">Add a comment for question</p><br><br><br>
 <form action="/question/{{question_id}}/new-comment" method="POST">
                 <textarea type="text" name="message" rows="5" cols="50"></textarea><br><br>
                 <input type="submit" value="Submit" />
