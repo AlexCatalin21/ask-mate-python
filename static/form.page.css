@@ -1,0 +1,19 @@
+.header {
+  padding: 60px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+  font-size: 30px;
+}
+
+h1 {
+    background-color: black;
+    padding: 30px;
+    margin-right: 100px;
+    margin-left: 100px;
+    margin-bottom: 40px;
+    font-family: Arial;
+    font-weight: bolder;
+    border-radius: 0px 0px 5px 5px;
+    position: relative;
+}
