@@ -59,9 +59,11 @@
                 <td>{{dictionar['view_number']}}</td>
                 <td>{{dictionar['vote_number']}}</td>
                 <td>
+                    {% if session['username'] != dictionar['username']: %}
                     <div>
                                 <a style="color: #0D47A1"  href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a>
                         </div>
+                    {%endif%}
                         <div>
                             <a  href="/question/{{dictionar['id']}}">
                                 {% if search_phrase == Null or search_phrase=="": %}
@@ -71,9 +73,11 @@
                                 {% endif %}
                                 </a>
                         </div>
+                     {% if session['username'] != dictionar['username']: %}
                         <div>
                                 <a style="color: #0D47A1" href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i></a>
                         </div>
+                    {%endif%}
                     </div>
                 </td>
                 <td>{% if search_phrase == Null or search_phrase=="": %}

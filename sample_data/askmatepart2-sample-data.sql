@@ -74,7 +74,8 @@ CREATE TABLE users(
     id serial NOT NULL ,
     username VARCHAR(150) NOT NULL UNIQUE ,
     password VARCHAR(150) NOT NULL ,
-    registration_date timestamp without time zone
+    registration_date timestamp without time zone,
+    reputation integer DEFAULT 0
 );
 
 ALTER TABLE only users

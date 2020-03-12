@@ -41,7 +41,7 @@ def answer_elements(cursor):
 @connection.connection_handler
 def comment_elements(cursor):
     cursor.execute(f"""
-                    SELECT  comment.id, question_id, answer_id, message,submission_time, users.username FROM comment 
+                    SELECT  comment.id, question_id, answer_id, message,submission_time, user_id, users.username FROM comment 
                         LEFT JOIN users ON (user_id=users.id)
                     """)
     sorted_list = cursor.fetchall()
@@ -265,3 +265,10 @@ def get_user_id_by_question_id(cursor, question_id):
                     ''')
     result=cursor.fetchone()
     return result['user_id']
+
+@connection.connection_handler
+def change_reputation(cursor,user_id, points):
+    cursor.execute(f"""
+                    UPDATE users SET reputation=reputation+{points}
+                    WHERE id='{user_id}';
+                    """)

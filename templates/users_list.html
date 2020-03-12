@@ -15,6 +15,7 @@
         <th scope="col">Username</th>
         <th scope="col">Password</th>
         <th scope="col">Registration Time</th>
+        <th scope="col">Reputation</th>
     </tr>
     <tbody>
     {% for users in table_elements: %}
@@ -23,6 +24,7 @@
             <td>{{users['username']}}</td>
             <td>{{users['password']}}</td>
             <td>{{users['registration_date']}}</td>
+            <td>{{users['reputation']}}</td>
         </tr>
     {% endfor %}
     </tbody>

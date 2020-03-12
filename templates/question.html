@@ -35,17 +35,19 @@
             <tr>
                 <td><strong>{{answers['username']}}</strong><br>
                     {{answers["message"]}}
-                    <p>
-                        <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_up"><i class="far fa-thumbs-up"></i></a>
-                        Vote number: {{answers['vote_number']}}
-                        <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_down"><i class="far fa-thumbs-down"></i></a>
-                    </p>
+                    {% if session['username'] != answers['username']: %}
+                        <p>
+                            <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_up"><i class="far fa-thumbs-up"></i></a>
+                            Vote number: {{answers['vote_number']}}
+                            <a class="buttons" href="/answer/{{answers['id']}}/{{question_id}}/vote_down"><i class="far fa-thumbs-down"></i></a>
+                        </p>
+                    {%endif%}
                     <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
                     <a class="quest_link" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
                     {%if answers['marked'] == True: %}
                     <p>Accepted answer</p>
                     {% else %}
-                        {% if 'username' in session and session['username'] == question_user and user_id != answers['user_id']: %}
+                        {% if ('username' in session) and (session['username'] == question_user) and (session['username'] != answers['username']): %}
                             <form action="/accept_answer/{{answers['id']}}" method="POST">
                               <input type="checkbox" id="answer" name="Accept" value=TRUE>
                               <label for="answer">Accept this answer</label><br>

@@ -37,7 +37,7 @@ def show_questions(question_id):
     if 'username' in session and user_id != None:
         return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id),
                                answer_elements= util.answer_elements(), question_id=question_id,
-                               comments = util.comment_elements(),question_user=util.get_username_by_id(user_id), username=session['username'],user_id=util.get_username_id(session['username']))
+                               comments = util.comment_elements(),question_user=util.get_username_by_id(user_id), username=session['username'],usr_id=util.get_username_id(session['username']))
     return render_template('question.html', question_elements=sorting_functions.title_and_message(question_id),
                            answer_elements=util.answer_elements(), question_id=question_id,
                            comments=util.comment_elements())
@@ -83,22 +83,30 @@ def add_question():
 @app.route('/question/<question_id>/vote-up', methods=["GET"])
 def question_vote_up(question_id):
     util.question_vote(question_id, 1)
+    if util.get_user_id_by_question_id(question_id) != None:
+        util.change_reputation(util.get_user_id_by_question_id(question_id), 5)
     return redirect(url_for('main_page'))
 
 
 @app.route('/question/<question_id>/vote-down', methods=["GET"])
 def question_vote_down(question_id):
     util.question_vote(question_id, -1)
+    if util.get_user_id_by_question_id(question_id) != None:
+        util.change_reputation(util.get_user_id_by_question_id(question_id), -2)
     return redirect(url_for('main_page'))
 
 @app.route('/answer/<answer_id>/<question_id>/vote_up', methods=['GET'])
 def answer_vote_up(answer_id, question_id):
     util.answer_vote(answer_id, 1)
+    if util.get_user_id_by_question_id(question_id) != None:
+        util.change_reputation(util.get_user_id_by_question_id(question_id), 10)
     return redirect(url_for('show_questions', question_id=question_id))
 
 @app.route('/answer/<answer_id>/<question_id>/vote_down', methods=['GET'])
 def answer_vote_down(answer_id, question_id):
     util.answer_vote(answer_id, -1)
+    if util.get_user_id_by_question_id(question_id) != None:
+        util.change_reputation(util.get_user_id_by_question_id(question_id), -2)
     return redirect(url_for('show_questions', question_id=question_id))
 
 @app.route('/answer/<answer_id>/edit', methods=['GET',"POST"])
@@ -200,6 +208,8 @@ def show_user_info(user_id):
 def mark_answer(answer_id):
     if request.method == 'POST':
         util.accept_answer(answer_id)
+        if util.get_user_id_by_question_id(util.get_question_id(answer_id)) != None:
+            util.change_reputation(util.get_user_id_by_question_id(util.get_question_id(answer_id)), 5)
     return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
 
 
