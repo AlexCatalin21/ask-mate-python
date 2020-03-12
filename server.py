@@ -13,25 +13,44 @@ def main_page():
     if 'username' in session:
         if request.method == 'POST':
             order = request.form['order']
-            return render_template('index.html', table_elements=util.sort_questions(order), username = session['username'],user_id=util.get_username_id(session['username']))
+            return render_template('index.html', table_elements=util.sort_questions(order),user_id=util.get_username_id(session['username']),username=session['username'])
         if request.args:
             search_phrase=request.args.get('phrase')
             util.search_a_phrase(search_phrase)
-            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase, username = session['username'],user_id=util.get_username_id(session['username']))
-        return render_template('index.html', table_elements=util.sort_questions(), username = session['username'],user_id=util.get_username_id(session['username']))
+            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase,user_id=util.get_username_id(session['username']),username=session['username'])
+        return render_template('index.html', table_elements=util.sort_questions(),user_id=util.get_username_id(session['username']),username=session['username'])
+    else:
+        if request.method == 'POST':
+            order = request.form['order']
+            return render_template('index.html', table_elements=util.sort_questions(order))
+        if request.args:
+            search_phrase=request.args.get('phrase')
+            util.search_a_phrase(search_phrase)
+            return render_template('index.html', table_elements=util.search_a_phrase(search_phrase), search_phrase=search_phrase)
+        return render_template('index.html', table_elements=util.sort_questions())
     return render_template('index.html', table_elements=util.sort_questions())
 
 @app.route('/question/<question_id>', methods=["GET"])
 def show_questions(question_id):
     util.increase_view(question_id)
-    return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id), answer_elements= util.answer_elements(), question_id=question_id,  comments = util.comment_elements())
+    user_id=util.get_user_id_by_question_id(question_id)
+    if 'username' in session and user_id != None:
+        return render_template('question.html', question_elements = sorting_functions.title_and_message(question_id),
+                               answer_elements= util.answer_elements(), question_id=question_id,
+                               comments = util.comment_elements(),question_user=util.get_username_by_id(user_id), username=session['username'])
+    return render_template('question.html', question_elements=sorting_functions.title_and_message(question_id),
+                           answer_elements=util.answer_elements(), question_id=question_id,
+                           comments=util.comment_elements())
 
 
 @app.route('/question/<question_id>/new-answer', methods=["GET", "POST"])
 def new_answers(question_id):
     if request.method == 'POST':
         message = request.form['message']
-        data_manager.write_to_answers(question_id, message, util.get_username_id(session['username']))
+        if 'username' in session:
+            data_manager.write_to_answers(question_id, message, util.get_username_id(session['username']))
+        else:
+            data_manager.write_to_answers(question_id, message)
         return redirect(url_for('show_questions', question_id=question_id))
     return render_template('new_answer.html', question_id=question_id)
 
@@ -52,7 +71,10 @@ def add_question():
     if request.method == 'POST':
         message = request.form['message']
         title = request.form['title']
-        data_manager.write_to_questions(message, title,util.get_username_id(session['username']))
+        if 'username' in session:
+            data_manager.write_to_questions(message, title,util.get_username_id(session['username']))
+        else:
+            data_manager.write_to_questions(message, title)
         question_id = data_manager.generate_id()
         return redirect(url_for('show_questions', question_id = question_id))
     return render_template('add-question.html')
@@ -105,18 +127,24 @@ def edit_comment(comment_id):
 @app.route('/question/<question_id>/new-comment', methods=['GET', 'POST'])
 def add_comment_to_question(question_id):
     if request.method == 'POST':
-       message = request.form['message']
-       data_manager.comment_for_question(message, question_id, util.get_username_id(session['username']))
-       return redirect(url_for('show_questions', question_id=question_id))
+        message = request.form['message']
+        if 'username' in session:
+            data_manager.comment_for_question(message, question_id, util.get_username_id(session['username']))
+        else:
+            data_manager.comment_for_question(message, question_id)
+        return redirect(url_for('show_questions', question_id=question_id))
     return render_template("comment_for_question.html", question_id=question_id)
 
 
 @app.route('/answer/<answer_id>/new-comment', methods=['GET', 'POST'])
 def add_comment_to_answer(answer_id):
     if request.method == 'POST':
-       message = request.form['message']
-       data_manager.comment_for_answer(message, answer_id, util.get_username_id(session['username']))
-       return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
+        message = request.form['message']
+        if 'username' in session:
+            data_manager.comment_for_answer(message, answer_id, util.get_username_id(session['username']))
+        else:
+            data_manager.comment_for_answer(message, answer_id)
+        return redirect(url_for('show_questions', question_id=util.get_question_id(answer_id)))
     return render_template("comment_for_answer.html", answer_id=answer_id)
 
 
@@ -166,6 +194,13 @@ def logout():
 @app.route('/user/<user_id>')
 def show_user_info(user_id):
     return render_template('user_page.html',question_elements=util.get_question_by_user_id(user_id), answer_elements=util.get_answer_by_user_id(user_id), comment_elements=util.get_comment_by_user_id(user_id))
+
+
+@app.route('/accept_answer' , methods=['GET','POST'])
+def mark_answer():
+    if request.method == 'POST':
+        util.accept_answer()
+
 
 
 if __name__ == '__main__':

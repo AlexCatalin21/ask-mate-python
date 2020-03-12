@@ -18,7 +18,7 @@ def read_from_table(cursor, table):
 
 
 @connection.connection_handler
-def write_to_answers(cursor, question_id, message,user_id):
+def write_to_answers(cursor, question_id, message,user_id=None):
     image = 'None'
     vote_number = 0
     submission_time = time.time()
@@ -29,7 +29,7 @@ def write_to_answers(cursor, question_id, message,user_id):
 
 
 @connection.connection_handler
-def write_to_questions(cursor, message, title,user_id):
+def write_to_questions(cursor, message, title,user_id=None):
     view_number = 0
     vote_number = 0
     submission_time = time.time()
@@ -41,7 +41,7 @@ def write_to_questions(cursor, message, title,user_id):
 
 
 @connection.connection_handler
-def comment_for_question(cursor, message, question_id, user_id):
+def comment_for_question(cursor, message, question_id, user_id=None):
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""
@@ -50,7 +50,7 @@ def comment_for_question(cursor, message, question_id, user_id):
 
 
 @connection.connection_handler
-def comment_for_answer(cursor, message, answer_id, user_id):
+def comment_for_answer(cursor, message, answer_id, user_id=None):
     submission_time = time.time()
     submission_time = datetime.utcfromtimestamp(submission_time).strftime('%Y-%m-%d %H:%M:%S')
     cursor.execute("""

@@ -39,7 +39,9 @@ CREATE TABLE answer (
     question_id integer,
     message text,
     image text,
-    user_id integer
+    user_id integer,
+    marked BOOLEAN NOT NULL DEFAULT FALSE
+
 );
 
 DROP TABLE IF EXISTS public.comment;

@@ -42,6 +42,13 @@
                     </p>
                     <p><a class="ans_link" href="/answer/{{answers['id']}}/edit"><i class="fas fa-pencil-alt"></i> Edit answer</a><br><br>
                     <a class="quest_link" href="/answer/{{answers['id']}}/new-comment"><i class="fas fa-plus-square"></i> Add Comment</a><br></p>
+                    {% if 'username' in session and session['username'] == question_user:%}
+                        <form action="/accept_answer" method="POST">
+                          <input type="checkbox" id="vehicle1" name="vehicle1" value=TRUE>
+                          <label for="vehicle1">Accept this answer</label><br>
+                          <input type="submit" value="Accept">
+                        </form>
+                    {% endif %}
                     <strong>Comments:</strong><br>
                     {% for comm in comments: %}
                           {% if answers['id']| int == comm['answer_id']| int %}

@@ -206,7 +206,7 @@ def verify_password(plain_text_password, hashed_password):
 def get_username_id(cursor, usrname):
     cursor.execute(f'''
                         SELECT id FROM users
-                        WHERE username = '{usrname}'
+                        WHERE username = '{usrname}';
                         ''')
     result=cursor.fetchone()
     return result['id']
@@ -215,7 +215,7 @@ def get_username_id(cursor, usrname):
 def get_username_by_id(cursor,id):
     cursor.execute(f'''
                         SELECT username FROM users
-                        WHERE id = {id}
+                        WHERE id = '{id}';
                     ''')
     result=cursor.fetchone()
     return result['username']
@@ -224,7 +224,7 @@ def get_username_by_id(cursor,id):
 def get_question_by_user_id(cursor,user_id):
     cursor.execute(f'''
                     SELECT submission_time, view_number, vote_number, title, message FROM question
-                    WHERE user_id='{user_id}'
+                    WHERE user_id='{user_id}';
                     ''')
     result=cursor.fetchall()
     return result
@@ -233,7 +233,7 @@ def get_question_by_user_id(cursor,user_id):
 def get_answer_by_user_id(cursor,user_id):
     cursor.execute(f'''
                     SELECT submission_time, vote_number, message FROM answer
-                    WHERE user_id='{user_id}'
+                    WHERE user_id='{user_id}';
                     ''')
     result=cursor.fetchall()
     return result
@@ -243,7 +243,25 @@ def get_answer_by_user_id(cursor,user_id):
 def get_comment_by_user_id(cursor,user_id):
     cursor.execute(f'''
                     SELECT submission_time, message FROM comment
-                    WHERE user_id='{user_id}'
+                    WHERE user_id='{user_id}';
                     ''')
     result=cursor.fetchall()
     return result
+
+@connection.connection_handler
+def accept_answer(cursor,answer_id):
+    cursor.execute(f'''
+                    UPDATE answer SET marked TRUE
+                    WHERE id ='{answer_id}';
+                    ''')
+
+
+
+@connection.connection_handler
+def get_user_id_by_question_id(cursor, question_id):
+    cursor.execute(f'''
+                        SELECT user_id FROM question
+                        WHERE id='{question_id}';
+                    ''')
+    result=cursor.fetchone()
+    return result['user_id']

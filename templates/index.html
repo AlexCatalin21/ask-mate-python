@@ -14,8 +14,8 @@
  <i class="fab fa-twitter"></i></h1>
 
     <div>
-        {%if username != ""%}
-        <a href="/user/{{user_id}}">{{username}}</a>
+        {% if 'username' in session: %}
+            <a style="color: white" href="/user/{{user_id}}">{{username}}</a>
         {%endif%}
     </div>
     <div>
@@ -85,8 +85,10 @@
             {% endfor%}
         </tbody>
     </table>
-    {%if username != NULL%}
-        <a href="/logout"><button class="myButton">Logout</button></a>
+    {%if 'username' in session: %}
+      <button class="myButton">
+        <a href="/logout"><strong>LOGOUT</strong></a>
+    </button>
     {%else%}
         <a style="color: white" href="/registration"> Register</a>
         <button class="myButton" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
