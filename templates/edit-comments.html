@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Edit comment</title>
 </head>
-    <body style="background-color:powderblue;">
+    <body class=".bg-primary">
         <div style="text-align: center">
-            <h2>Edit comment</h2><br><br><br>
+            <p class="h1">Edit comment</p><br><br><br>
 <form action="/comment/{{comment_id}}/edit" method="POST">
                 <textarea type="text" name="message" rows="5" cols="50">{% for message in comments: %}{% if comment_id| int == message['id']| int %}{{message['message']}}{% endif %}{% endfor %}
                 </textarea><br><br>
