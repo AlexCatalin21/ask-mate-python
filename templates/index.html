@@ -30,21 +30,17 @@
         </button>
     {%endif%}
  </h1>
-<button class="myButton" onclick="location.href='/users_list'">
-Show Users
-</button><br><br>
-
         <form style="margin-left: 10px" class="search_form" action="/search" method="GET">
             <div>
                 <div>
-                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="phrase">
-                </div>
-                <div>
-                    <input type="submit" value="Search" />
+                    <input id="header_search_query" type="search" name="phrase" value="" placeholder="Search a word..."
+                           class="input-reset color-inherit input-focus all-animate br-pill ph4 sans-serif header-search-input ba bw1 bg-gray1 b--gray1">
                 </div>
             </div>
-
-        </form>
+        </form><br><br>
+    <button class="myButton" onclick="location.href='/users_list'">
+        Show Users
+    </button>
 
     <div style="margin-top: 30px">
         <button class="myButton" onclick="location.href='/add_question'">
@@ -70,16 +66,17 @@ Show Users
         </div>
     </form>
 
-<h2 align="center" style="color: #ffffff; margin-top: 10px"><strong>QUESTIONS</strong></h2>
-    <table>
+<h2 align="center" style="color: #ffffff; margin-top: 10px"><strong>QUESTIONS</strong></h2><br><br><br>
+    <table class="table table-striped table-dark">
         <tr>
-            <th>ID</th>
-            <th style="width: 150px">Submission Time</th>
-            <th>View Number</th>
-            <th>Vote Number</th>
-            <th style="width: 250px">Title</th>
-            <th>Message</th>
-            <th>User</th>
+            <th scope="col">ID</th>
+            <th scope="col" style="width: 150px">Submission Time</th>
+            <th scope="col">View Number</th>
+            <th scope="col">Vote Number</th>
+            <th scope="col" style="width: 250px">Title</th>
+            <th scope="col">Vote</th>
+            <th scope="col">Message</th>
+            <th scope="col">User</th>
         </tr>
         <tbody>
             {% for dictionar in table_elements: %}
@@ -89,13 +86,8 @@ Show Users
                 <td>{{dictionar['view_number']}}</td>
                 <td>{{dictionar['vote_number']}}</td>
                 <td>
-                    {% if session['username'] != dictionar['username']: %}
-                    <div>
-                                <a style="color: #0D47A1"  href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a>
-                        </div>
-                    {%endif%}
                         <div>
-                            <a  href="/question/{{dictionar['id']}}">
+                            <a style="color: white" href="/question/{{dictionar['id']}}">
                                 {% if search_phrase == Null or search_phrase=="": %}
                                     {{dictionar['title']}}
                                 {% else: %}
@@ -103,13 +95,14 @@ Show Users
                                 {% endif %}
                                 </a>
                         </div>
-                     {% if session['username'] != dictionar['username']: %}
-                        <div>
-                                <a style="color: #0D47A1" href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i></a>
-                        </div>
-                    {%endif%}
                     </div>
                 </td>
+                <td>{% if session['username'] != dictionar['username']: %}
+                    <div class="tab">
+                        <a style="color: #0D47A1" href="/question/{{dictionar['id']}}/vote-up"><i class="fas fa-thumbs-up"></i></a><br><br>
+                        <a style="color: #0D47A1" href="/question/{{dictionar['id']}}/vote-down"><i class="fas fa-thumbs-down"></i></a>
+                        </div>
+                    {%endif%}</td>
                 <td>{% if search_phrase == Null or search_phrase=="": %}
                                     {{dictionar['message']}}
                                 {% else: %}

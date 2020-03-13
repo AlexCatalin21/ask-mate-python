@@ -1,9 +1,5 @@
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-    background-color: blue;
-    color: white;
+body{
+    background-color: #1EAE98;
 }
 table{
     color:black;
@@ -16,20 +12,18 @@ table{
     border-radius: 5px;
 }
 h1 {
-    color:blue;
-    background-color: white;
-    text-align: center;
+    background-color: black;
     padding: 30px;
     margin-right: 100px;
     margin-left: 100px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     font-family: Arial;
     font-weight: bolder;
     border-radius: 0px 0px 5px 5px;
-    margin-top: 0px;
+    position: relative;
 }
 mark{
-    color:white;
+    color: white;
     background-color: blue;
     border-radius: 5px;
     padding: .2em;
